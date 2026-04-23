@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -25,34 +24,32 @@ class RegisteredUserController extends Controller
 
     /**
      * Handle an incoming registration request.
-     *
-     * @throws ValidationException
      */
-   public function store(LoginRequest $request)
-{
-    // Validasi input pengguna
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|confirmed|min:8',
-        'invitation_code' => 'required|exists:invitation_codes,code|in:unused', // Kode undangan
-    ]);
+    public function store(Request $request): RedirectResponse
+    {
+        // Validasi input
+        $request->validate([
+            'name'                  => ['required', 'string', 'max:255'],
+            'phone'                 => ['nullable', 'string', 'max:20'],
+            'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password'              => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
 
-    // Validasi Kode Undangan
-    $invitationCode = InvitationCode::where('code', $request->invitation_code)->first();
-    $invitationCode->status = 'used'; // Ubah status kode jadi 'used'
-    $invitationCode->save();
+        // Buat user baru
+        $user = User::create([
+            'name'      => $request->name,
+            'phone'     => $request->phone,
+            'email'     => $request->email,
+            'password'  => Hash::make($request->password),
+            'role'      => 'admin',
+            'status'    => 'pending',
+        ]);
 
-    // Proses pendaftaran user dan set status ke 'pending'
-    $user = User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-        'role' => 'admin',
-        'status' => 'pending', // Set status admin kos ke 'pending'
-    ]);
+        event(new Registered($user));
 
-    // Redirect ke halaman login dengan pesan pendaftaran berhasil
-    return redirect()->route('login')->with('status', 'Pendaftaran berhasil! Menunggu persetujuan Super Admin.');
-}
+        // Logout langsung, redirect ke register dengan popup berhasil
+        Auth::logout();
+
+        return redirect()->route('register')->with('registered', true);
+    }
 }

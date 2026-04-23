@@ -142,4 +142,39 @@
             input.type = input.type === 'password' ? 'text' : 'password';
         }
     </script>
+ {{-- Modal Berhasil --}}
+@if (session('registered'))
+<div id="modal-berhasil" class="fixed inset-0 flex items-center justify-center z-50">
+    
+    {{-- Backdrop --}}
+    <div class="absolute inset-0 bg-gray-400 bg-opacity-40"></div>
+
+    {{-- Modal Box --}}
+    <div class="relative bg-[#FDFAF4] rounded-2xl shadow-xl px-10 py-10 w-80 flex flex-col items-center text-center">
+        
+        {{-- Icon Centang --}}
+        <div class="bg-[#D6E5D6] rounded-full p-5 mb-4 relative">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-[#6C8B6B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            {{-- Bintang dekorasi --}}
+            <span class="absolute top-1 left-1 text-[#6C8B6B] text-lg">+</span>
+            <span class="absolute bottom-1 right-0 text-[#6C8B6B] text-lg">✦</span>
+        </div>
+
+        {{-- Teks --}}
+        <h2 class="text-lg font-bold text-[#6C8B6B] mb-2">Berhasil</h2>
+        <p class="text-sm text-gray-600 mb-6">Pendaftaran akun Anda masih<br>menunggu persetujuan</p>
+
+        {{-- Tombol Oke --}}
+        <button 
+            onclick="document.getElementById('modal-berhasil').style.display='none'"
+            class="bg-[#6C8B6B] hover:bg-[#5a7a59] text-white text-sm font-semibold px-8 py-2 rounded-lg transition duration-200"
+        >
+            Oke
+        </button>
+
+    </div>
+</div>
+@endif
 </x-guest-layout>
