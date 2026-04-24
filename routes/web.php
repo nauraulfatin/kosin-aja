@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,5 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/reject/{id}', [SuperAdminController::class, 'reject']);
 
 });
+
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
 require __DIR__.'/auth.php';
