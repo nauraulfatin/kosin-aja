@@ -10,30 +10,33 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Dashboard redirect berdasarkan role
+Route::get('/dashboard', [RedirectController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
 
+// Profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/dashboard', [RedirectController::class, 'index'])
+// Admin
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth'])
-    ->name('dashboard');
+    ->name('admin.dashboard');
 
-Route::middleware('auth')->group(function () {
-
-    Route::get('/superadmin', [SuperAdminController::class, 'index']);
-
-    Route::post('/approve/{id}', [SuperAdminController::class, 'approve']);
-
-    Route::post('/reject/{id}', [SuperAdminController::class, 'reject']);
-
+// Super Admin
+Route::middleware(['auth'])->prefix('superadmin')->name('superadmin.')->group(function () {
+    Route::get('/', [SuperAdminController::class, 'index'])->name('dashboard');
+    Route::get('/pengajuan', [SuperAdminController::class, 'pengajuan'])->name('pengajuan');
+    Route::get('/pengajuan/{id}', [SuperAdminController::class, 'detail'])->name('pengajuan.detail');
+    Route::get('/riwayat', [SuperAdminController::class, 'riwayat'])->name('riwayat');
+    Route::get('/admin', [SuperAdminController::class, 'adminList'])->name('admin');
+    Route::post('/approve/{id}', [SuperAdminController::class, 'approve'])->name('approve');
+    Route::post('/reject/{id}', [SuperAdminController::class, 'reject'])->name('reject');
+    Route::delete('/riwayat/{id}', [SuperAdminController::class, 'hapusRiwayat'])->name('riwayat.hapus');
 });
-
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
 require __DIR__.'/auth.php';

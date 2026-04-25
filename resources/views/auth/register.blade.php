@@ -47,6 +47,34 @@
                         </div>
                     </div>
 
+                    {{-- Nama Kos --}}
+<div class="mb-4">
+    <x-input-label for="nama_kos" :value="__('Nama Kos')" class="text-s text-gray-500 mb-1" />
+    <x-text-input 
+        id="nama_kos" 
+        class="block w-full border border-gray-300 rounded-lg px-4 py-3 text-base focus:ring-[#6C8B6B] focus:border-[#6C8B6B]" 
+        type="text" 
+        name="nama_kos" 
+        :value="old('nama_kos')" 
+        required 
+        placeholder="Nama Kos"
+    />
+    <x-input-error :messages="$errors->get('nama_kos')" class="mt-1 text-xs" />
+</div>
+
+{{-- Alamat Kos --}}
+<div class="mb-4">
+    <x-input-label for="alamat_kos" :value="__('Alamat Kos')" class="text-s text-gray-500 mb-1" />
+    <textarea 
+        id="alamat_kos" 
+        name="alamat_kos" 
+        rows="3"
+        placeholder="Alamat Kos"
+        class="block w-full border border-gray-300 rounded-lg px-4 py-3 text-base focus:ring-[#6C8B6B] focus:border-[#6C8B6B] resize-none"
+    >{{ old('alamat_kos') }}</textarea>
+    <x-input-error :messages="$errors->get('alamat_kos')" class="mt-1 text-xs" />
+</div>
+
                     {{-- Email --}}
                     <div class="mb-4">
                         <x-input-label for="email" :value="__('Email')" class="text-ss text-gray-500 mb-1" />

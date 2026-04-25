@@ -29,21 +29,24 @@ class RegisteredUserController extends Controller
     {
         // Validasi input
         $request->validate([
-            'name'                  => ['required', 'string', 'max:255'],
-            'phone'                 => ['nullable', 'string', 'max:20'],
-            'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password'              => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+    'name'      => ['required', 'string', 'max:255'],
+    'phone'     => ['nullable', 'string', 'max:20'],
+    'nama_kos'  => ['required', 'string', 'max:255'],
+    'alamat_kos'=> ['required', 'string'],
+    'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    'password'  => ['required', 'confirmed', Rules\Password::defaults()],
+]);
 
-        // Buat user baru
-        $user = User::create([
-            'name'      => $request->name,
-            'phone'     => $request->phone,
-            'email'     => $request->email,
-            'password'  => Hash::make($request->password),
-            'role'      => 'admin',
-            'status'    => 'pending',
-        ]);
+$user = User::create([
+    'name'       => $request->name,
+    'phone'      => $request->phone,
+    'nama_kos'   => $request->nama_kos,
+    'alamat_kos' => $request->alamat_kos,
+    'email'      => $request->email,
+    'password'   => Hash::make($request->password),
+    'role'       => 'admin',
+    'status'     => 'pending',
+]);
 
         event(new Registered($user));
 

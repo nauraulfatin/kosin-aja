@@ -24,27 +24,27 @@ class AuthenticatedSessionController extends Controller
      */
    public function store(LoginRequest $request): RedirectResponse
 {
-    // Autentikasi pengguna
     $request->authenticate();
-
-    // Regenerasi session untuk keamanan
     $request->session()->regenerate();
 
     $user = auth()->user();
 
-    // Cek status admin kos
     if ($user->role == 'admin' && $user->status != 'approved') {
-        // Logout jika statusnya tidak approved
         auth()->logout();
-        
-        // Tampilkan pesan jika statusnya pending atau rejected
         return back()->withErrors([
             'email' => 'Akun Anda masih menunggu persetujuan dari Super Admin.'
         ]);
     }
 
-    // Jika statusnya approved, lanjutkan ke halaman dashboard
-    return redirect()->intended(route('dashboard'));
+    if ($user->role == 'super_admin') {
+        return redirect()->route('superadmin.dashboard');
+    }
+
+    if ($user->role == 'admin') {
+        return redirect()->route('admin.dashboard');
+    }
+
+    return redirect('/');
 }
     /**
      * Destroy an authenticated session.
