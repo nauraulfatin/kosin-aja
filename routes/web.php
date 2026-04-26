@@ -39,4 +39,22 @@ Route::middleware(['auth'])->prefix('superadmin')->name('superadmin.')->group(fu
     Route::delete('/riwayat/{id}', [SuperAdminController::class, 'hapusRiwayat'])->name('riwayat.hapus');
 });
 
+
+// punya sapir
+
+
+Route::get('/home', function () {
+    return view('katalog.home');
+})->name('home');
+
+Route::get('/hubungi', function () {
+    return view('katalog.hubungi');
+})->name('hubungi');
+
+Route::get('/tentang', function () {
+    return view('katalog.tentang');
+})->name('tentang');
+
+
+
 require __DIR__.'/auth.php';
