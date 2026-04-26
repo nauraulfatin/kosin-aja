@@ -917,7 +917,7 @@
             <a href="#" class="btn-cta-outline">Daftarkan Kost Anda</a>
         </div>
         <div class="cta-join-image">
-            <img src="{{ asset('about-cta.png') }}" alt="Ilustrasi">
+            <img src="{{ asset('daon (1).png') }}" alt="Ilustrasi">
         </div>
     </div>
 
