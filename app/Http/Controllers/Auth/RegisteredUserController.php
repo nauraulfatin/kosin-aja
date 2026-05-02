@@ -29,11 +29,11 @@ class RegisteredUserController extends Controller
     {
         // Validasi input
         $request->validate([
-    'name'      => ['required', 'string', 'max:255'],
-    'phone'     => ['nullable', 'string', 'max:20'],
+    'name'      => ['required', 'string', 'max:100'],
+    'phone'     => ['nullable', 'string', 'max:15'],
     'nama_kos'  => ['required', 'string', 'max:255'],
     'alamat_kos'=> ['required', 'string'],
-    'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    'email'     => ['required', 'string', 'email', 'max:50', 'unique:users'],
     'password'  => ['required', 'confirmed', Rules\Password::defaults()],
 ]);
 
