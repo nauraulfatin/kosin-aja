@@ -27,23 +27,25 @@ class SuperAdminController extends Controller
         ));
     }
 
-    public function pengajuan()
+    public function pengajuan() //(1 & 2) bukaMenuPendaftaran() + tampilkanDaftarPendaftaran()
     {
-        $pengajuan = User::where('role', 'admin')
+        $pengajuan = User::where('role', 'admin') //ambil data
                          ->where('status', 'pending')
                          ->orderBy('created_at', 'desc')
                          ->get();
 
-        return view('superadmin.pengajuan', compact('pengajuan'));
+        return view('superadmin.pengajuan', compact('pengajuan')); 
     }
 
-    public function detail($id)
+    public function detail($id) //3. pilih pendaftaran untuk lihat detail
     {
-        $admin = User::findOrFail($id);
-        return view('superadmin.detail', compact('admin'));
+        $admin = User::findOrFail($id); // 4. request detail 
+
+        // untuk 5 dan 6 data diambil dari database
+        return view('superadmin.detail', compact('admin')); //(7) tampilkanDetailPendaftaran()
     }
 
-    public function approve($id)
+    public function approve($id) // 
 {
     $admin = User::find($id);
 
@@ -56,14 +58,14 @@ class SuperAdminController extends Controller
     return redirect()->route('superadmin.pengajuan')->with('error', 'Admin tidak ditemukan.');
 }
 
-public function reject($id)
+public function reject($id) // 8. setujui atau tolak pendaftaran
 {
-    $admin = User::find($id);
+    $admin = User::find($id); // 9. updateStatus()
 
     if ($admin) {
-        $admin->status = 'rejected';
+        $admin->status = 'rejected'; // 10. ubah status
         $admin->save();
-        return redirect()->route('superadmin.pengajuan.detail', $id)->with('tolak', true);
+        return redirect()->route('superadmin.pengajuan.detail', $id)->with('tolak', true); 
     }
 
     return redirect()->route('superadmin.pengajuan')->with('error', 'Admin tidak ditemukan.');

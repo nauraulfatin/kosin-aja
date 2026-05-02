@@ -40,7 +40,29 @@ Route::middleware(['auth'])->prefix('superadmin')->name('superadmin.')->group(fu
 });
 
 
+
 // punya sapir
+
+
+Route::get('/penghuni/dashboard', function () {
+    return view('penghuni.dashboard');
+})->name('penghuni.dashboard');
+
+Route::get('/penghuni/pembayaran', function () {
+    return view('penghuni.pembayaran');
+})->name('penghuni.pembayaran');
+
+Route::get('/penghuni/aduan', function () {
+    return view('penghuni.aduan');
+})->name('penghuni.aduan');
+
+Route::get('/penghuni/aturan', function () {
+    return view('penghuni.aturan');
+})->name('penghuni.aturan');
+
+Route::get('/penghuni/profil', function () {
+    return view('penghuni.profil');
+})->name('penghuni.profil');
 
 
 Route::get('/home', function () {
