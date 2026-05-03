@@ -7,8 +7,17 @@ use Illuminate\Http\Request;
 
 class SuperAdminController extends Controller
 {
+    private function checkRole()
+    {
+        if (!auth()->check() || auth()->user()->role !== 'super_admin') {
+            abort(403, 'Akses ditolak.');
+        }
+    }
+
     public function index()
     {
+        $this->checkRole();
+
         $pengajuanBaru = User::where('role', 'admin')->where('status', 'pending')->count();
         $totalMitra    = User::where('role', 'admin')->where('status', 'approved')->count();
         $ditolak       = User::where('role', 'admin')->where('status', 'rejected')->count();
@@ -29,6 +38,8 @@ class SuperAdminController extends Controller
 
     public function pengajuan()
     {
+        $this->checkRole();
+
         $pengajuan = User::where('role', 'admin')
                          ->where('status', 'pending')
                          ->orderBy('created_at', 'desc')
@@ -39,52 +50,58 @@ class SuperAdminController extends Controller
 
     public function detail($id)
     {
+        $this->checkRole();
+
         $admin = User::findOrFail($id);
         return view('superadmin.detail', compact('admin'));
     }
 
     public function approve($id)
-{
-    $admin = User::find($id);
+    {
+        $this->checkRole();
 
-    if ($admin) {
-        $admin->status = 'approved';
-        $admin->save();
-        return redirect()->route('superadmin.pengajuan.detail', $id)->with('setujui', true);
+        $admin = User::find($id);
+        if ($admin) {
+            $admin->status = 'approved';
+            $admin->save();
+            return redirect()->route('superadmin.pengajuan.detail', $id)->with('setujui', true);
+        }
+        return redirect()->route('superadmin.pengajuan')->with('error', 'Admin tidak ditemukan.');
     }
 
-    return redirect()->route('superadmin.pengajuan')->with('error', 'Admin tidak ditemukan.');
-}
+    public function reject($id)
+    {
+        $this->checkRole();
 
-public function reject($id)
-{
-    $admin = User::find($id);
-
-    if ($admin) {
-        $admin->status = 'rejected';
-        $admin->save();
-        return redirect()->route('superadmin.pengajuan.detail', $id)->with('tolak', true);
+        $admin = User::find($id);
+        if ($admin) {
+            $admin->status = 'rejected';
+            $admin->save();
+            return redirect()->route('superadmin.pengajuan.detail', $id)->with('tolak', true);
+        }
+        return redirect()->route('superadmin.pengajuan')->with('error', 'Admin tidak ditemukan.');
     }
 
-    return redirect()->route('superadmin.pengajuan')->with('error', 'Admin tidak ditemukan.');
-}
+    public function riwayat()
+    {
+        $this->checkRole();
 
-   public function riwayat()
-{
-    $query = User::where('role', 'admin')
-                 ->whereIn('status', ['approved', 'rejected']);
+        $query = User::where('role', 'admin')
+                     ->whereIn('status', ['approved', 'rejected']);
 
-    if (request('bulan')) {
-        $query->whereMonth('created_at', request('bulan'));
+        if (request('bulan')) {
+            $query->whereMonth('created_at', request('bulan'));
+        }
+
+        $riwayat = $query->orderBy('created_at', 'desc')->get();
+
+        return view('superadmin.riwayat', compact('riwayat'));
     }
-
-    $riwayat = $query->orderBy('created_at', 'desc')->get();
-
-    return view('superadmin.riwayat', compact('riwayat'));
-}
 
     public function adminList()
     {
+        $this->checkRole();
+
         $admins = User::where('role', 'admin')
                       ->where('status', 'approved')
                       ->orderBy('created_at', 'desc')
@@ -94,8 +111,18 @@ public function reject($id)
     }
 
     public function hapusRiwayat($id)
-{
-    User::findOrFail($id)->delete();
-    return redirect()->route('superadmin.riwayat')->with('success', 'Data berhasil dihapus.');
-}
+    {
+        $this->checkRole();
+
+        User::findOrFail($id)->delete();
+        return redirect()->route('superadmin.riwayat')->with('success', 'Data berhasil dihapus.');
+    }
+
+    public function hapusAdmin($id)
+    {
+        $this->checkRole();
+
+        User::findOrFail($id)->delete();
+        return redirect()->route('superadmin.admin')->with('success', 'Admin berhasil dihapus.');
+    }
 }

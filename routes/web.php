@@ -23,9 +23,21 @@ Route::middleware('auth')->group(function () {
 });
 
 // Admin
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth'])
-    ->name('admin.dashboard');
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Kamar
+    Route::resource('kamar', \App\Http\Controllers\Admin\KamarController::class);
+
+    // Penghuni
+    Route::resource('penghuni', \App\Http\Controllers\Admin\PenghuniController::class);
+
+    // Placeholder routes (nanti diisi)
+    Route::get('/pembayaran', fn() => view('admin.pembayaran.index'))->name('pembayaran.index');
+    Route::get('/aduan', fn() => view('admin.aduan.index'))->name('aduan.index');
+    Route::get('/aturan', fn() => view('admin.aturan.index'))->name('aturan.index');
+    Route::get('/informasi', fn() => view('admin.informasi.index'))->name('informasi.index');
+});
 
 // Super Admin
 Route::middleware(['auth'])->prefix('superadmin')->name('superadmin.')->group(function () {
@@ -37,6 +49,7 @@ Route::middleware(['auth'])->prefix('superadmin')->name('superadmin.')->group(fu
     Route::post('/approve/{id}', [SuperAdminController::class, 'approve'])->name('approve');
     Route::post('/reject/{id}', [SuperAdminController::class, 'reject'])->name('reject');
     Route::delete('/riwayat/{id}', [SuperAdminController::class, 'hapusRiwayat'])->name('riwayat.hapus');
+    Route::delete('/admin/{id}', [SuperAdminController::class, 'hapusAdmin'])->name('admin.hapus');
 });
 
 require __DIR__.'/auth.php';
