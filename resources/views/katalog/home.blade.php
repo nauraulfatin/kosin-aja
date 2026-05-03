@@ -918,84 +918,58 @@
         <a href="#" class="btn-lihat-semua">Lihat Semua</a>
     </div>
     <div class="kos-grid">
+        @forelse($katalogKos as $kos)
         <div class="kos-card">
             <div class="kos-thumb">
-                <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=400&q=80" alt="Kost Mawar">
-                <span class="kos-badge badge-premium"></span>
+                @if($kos->foto_utama)
+                    <img src="{{ Storage::url($kos->foto_utama) }}" alt="{{ $kos->nama_kos }}">
+                @else
+                    <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=400&q=80" alt="{{ $kos->nama_kos }}">
+                @endif
                 <button class="kos-wish">♡</button>
             </div>
             <div class="kos-body">
-                <div class="kos-name">Kost Mawar</div>
-                <div class="kos-loc">Banyuwangi, Jawa Timur</div>
-                <div class="kos-rating"><span class="star">★ 4.8</span><span>(124)</span><span>• 1.2 km dari
-                        Kampus</span></div>
-                <div class="kos-price">Rp 1.500.000 <span>/ bulan</span></div>
-                <div class="kos-tags"><span class="kos-tag">AC</span><span class="kos-tag">WiFi</span><span
-                        class="kos-tag">KM Dalam</span><span class="kos-tag">Dapur</span><span class="kos-tag">+2</span>
+                <div class="kos-name">{{ $kos->nama_kos }}</div>
+                <div class="kos-loc">{{ $kos->kota ?? $kos->alamat }}</div>
+                <div class="kos-price">
+                    {{ $kos->harga_mulai ? 'Rp '.number_format($kos->harga_mulai, 0, ',', '.') : 'Hubungi Kami' }}
+                    @if($kos->harga_mulai)
+                        <span>/ bulan</span>
+                    @endif
                 </div>
-                <div class="kos-info"><span>5 Kamar Tersedia</span><span>Single</span></div>
-            </div>
-            <div class="kos-actions"><a href="#" class="btn-detail">Lihat Detail</a><a href="#"
-                    class="btn-hubungi">Hubungi</a></div>
-        </div>
-        <div class="kos-card">
-            <div class="kos-thumb">
-                <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80" alt="Kost Melati">
-                <span class="kos-badge badge-favorit"></span>
-                <button class="kos-wish">♡</button>
-            </div>
-            <div class="kos-body">
-                <div class="kos-name">Kost Melati</div>
-                <div class="kos-loc">Malang, Jawa Timur</div>
-                <div class="kos-rating"><span class="star">★ 4.7</span><span>(98)</span><span>• 800 m dari Kampus</span>
+                @if($kos->fasilitas && count($kos->fasilitas) > 0)
+                <div class="kos-tags">
+                    @foreach(array_slice($kos->fasilitas, 0, 4) as $f)
+                        <span class="kos-tag">{{ $f }}</span>
+                    @endforeach
+                    @if(count($kos->fasilitas) > 4)
+                        <span class="kos-tag">+{{ count($kos->fasilitas) - 4 }}</span>
+                    @endif
                 </div>
-                <div class="kos-price">Rp 1.200.000 <span>/ bulan</span></div>
-                <div class="kos-tags"><span class="kos-tag">WiFi</span><span class="kos-tag">KM Dalam</span><span
-                        class="kos-tag">Dapur</span><span class="kos-tag">Parkir</span></div>
-                <div class="kos-info"><span>3 Kamar Tersedia</span><span>Single</span></div>
-            </div>
-            <div class="kos-actions"><a href="#" class="btn-detail">Lihat Detail</a><a href="#"
-                    class="btn-hubungi">Hubungi</a></div>
-        </div>
-        <div class="kos-card">
-            <div class="kos-thumb">
-                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" alt="Kost Anggrek">
-                <span class="kos-badge badge-premium"></span>
-                <button class="kos-wish">♡</button>
-            </div>
-            <div class="kos-body">
-                <div class="kos-name">Kost Anggrek</div>
-                <div class="kos-loc">Surabaya, Jawa Timur</div>
-                <div class="kos-rating"><span class="star">★ 4.9</span><span>(54)</span><span>• 1.5 km dari
-                        Kampus</span></div>
-                <div class="kos-price">Rp 1.600.000 <span>/ bulan</span></div>
-                <div class="kos-tags"><span class="kos-tag">AC</span><span class="kos-tag">WiFi</span><span
-                        class="kos-tag">Laundry</span><span class="kos-tag">Parkir</span><span class="kos-tag">+1</span>
+                @endif
+                <div class="kos-info">
+                    <span>Tipe: {{ ucfirst($kos->tipe_kos) }}</span>
                 </div>
-                <div class="kos-info"><span>3 Kamar Tersedia</span><span>Single / Double</span></div>
             </div>
-            <div class="kos-actions"><a href="#" class="btn-detail">Lihat Detail</a><a href="#"
-                    class="btn-hubungi">Hubungi</a></div>
+            <div class="kos-actions">
+                <a href="{{ route('katalog.detail', $kos->id) }}" class="btn-detail">Lihat Detail</a>
+                @if($kos->no_telepon)
+                    <a href="https://wa.me/62{{ ltrim(preg_replace('/[^0-9]/', '', $kos->no_telepon), '0') }}" 
+                       class="btn-hubungi" target="_blank">Hubungi</a>
+                @else
+                    <a href="{{ route('hubungi') }}" class="btn-hubungi">Hubungi</a>
+                @endif
+            </div>
         </div>
-        <div class="kos-card">
-            <div class="kos-thumb">
-                <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=400&q=80" alt="Kost Sakura">
-                <span class="kos-badge badge-favorit"></span>
-                <button class="kos-wish">♡</button>
-            </div>
-            <div class="kos-body">
-                <div class="kos-name">Kost Sakura</div>
-                <div class="kos-loc">Yogyakarta, DI Yogyakarta</div>
-                <div class="kos-rating"><span class="star">★ 4.8</span><span>(87)</span><span>• 1.1 km dari
-                        Kampus</span></div>
-                <div class="kos-price">Rp 1.300.000 <span>/ bulan</span></div>
-                <div class="kos-tags"><span class="kos-tag">WiFi</span><span class="kos-tag">KM Dalam</span><span
-                        class="kos-tag">CCTV</span></div>
-                <div class="kos-info"><span>4 Kamar Tersedia</span><span>Single</span></div>
-            </div>
-            <div class="kos-actions"><a href="#" class="btn-detail">Lihat Detail</a><a href="#"
-                    class="btn-hubungi">Hubungi</a></div>
+        @empty
+        <div style="grid-column:1/-1; text-align:center; padding:60px 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width:64px;height:64px;fill:#d1d5db;margin:0 auto 16px;display:block;" viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            <p style="font-size:1rem;font-weight:700;color:#6b7280;margin-bottom:6px;">Belum ada kos tersedia</p>
+            <p style="font-size:0.85rem;color:#9ca3af;">Kos akan muncul di sini setelah admin mendaftarkan informasi kos mereka.</p>
         </div>
+        @endforelse
     </div>
 </section>
 

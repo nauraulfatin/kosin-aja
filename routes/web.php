@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\InformasiKosController;
+use App\Http\Controllers\Admin\KamarController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,16 +30,24 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Kamar
-    Route::resource('kamar', \App\Http\Controllers\Admin\KamarController::class);
+    Route::resource('kamar', KamarController::class);
 
     // Penghuni
     Route::resource('penghuni', \App\Http\Controllers\Admin\PenghuniController::class);
 
-    // Placeholder routes (nanti diisi)
+    // Placeholder routes
     Route::get('/pembayaran', fn() => view('admin.pembayaran.index'))->name('pembayaran.index');
     Route::get('/aduan', fn() => view('admin.aduan.index'))->name('aduan.index');
     Route::get('/aturan', fn() => view('admin.aturan.index'))->name('aturan.index');
-    Route::get('/informasi', fn() => view('admin.informasi.index'))->name('informasi.index');
+
+    // Informasi Kos
+   // Informasi Kos
+Route::get('/informasi', [InformasiKosController::class, 'index'])->name('informasi.index');
+Route::get('/informasi/create', [InformasiKosController::class, 'create'])->name('informasi.create');
+Route::post('/informasi', [InformasiKosController::class, 'store'])->name('informasi.store');
+Route::get('/informasi/edit', [InformasiKosController::class, 'edit'])->name('informasi.edit');
+Route::put('/informasi', [InformasiKosController::class, 'update'])->name('informasi.update');
+Route::post('/informasi/hapus-foto', [InformasiKosController::class, 'hapusFoto'])->name('informasi.hapusFoto');
 });
 
 // Super Admin
@@ -52,9 +63,7 @@ Route::middleware(['auth'])->prefix('superadmin')->name('superadmin.')->group(fu
     Route::delete('/admin/{id}', [SuperAdminController::class, 'hapusAdmin'])->name('admin.hapus');
 });
 
-Route::get('/home', function () {
-    return view('katalog.home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/hubungi', function () {
     return view('katalog.hubungi');
@@ -63,6 +72,11 @@ Route::get('/hubungi', function () {
 Route::get('/tentang', function () {
     return view('katalog.tentang');
 })->name('tentang');
+
+Route::get('/katalog/{id}', function($id) {
+    $kos = \App\Models\InformasiKos::findOrFail($id);
+    return view('katalog.detail', compact('kos'));
+})->name('katalog.detail');
 
 
 require __DIR__.'/auth.php';
