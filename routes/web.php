@@ -52,4 +52,17 @@ Route::middleware(['auth'])->prefix('superadmin')->name('superadmin.')->group(fu
     Route::delete('/admin/{id}', [SuperAdminController::class, 'hapusAdmin'])->name('admin.hapus');
 });
 
+Route::get('/home', function () {
+    return view('katalog.home');
+})->name('home');
+
+Route::get('/hubungi', function () {
+    return view('katalog.hubungi');
+})->name('hubungi');
+
+Route::get('/tentang', function () {
+    return view('katalog.tentang');
+})->name('tentang');
+
+
 require __DIR__.'/auth.php';
