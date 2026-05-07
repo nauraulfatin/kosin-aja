@@ -31,49 +31,50 @@
                 </div>
             </div>
 
-            {{-- Status --}}
-            <div class="mb-4">
-                <label class="block text-sm text-gray-500 mb-1">Status <span class="text-red-400">*</span></label>
-                <select name="status"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#6C8B6B]">
-                    <option value="kosong" {{ old('status', $kamar->status ?? '') == 'kosong' ? 'selected' : '' }}>Kosong</option>
-                    <option value="terisi" {{ old('status', $kamar->status ?? '') == 'terisi' ? 'selected' : '' }}>Terisi</option>
-                </select>
-            </div>
-
             {{-- Foto Kamar --}}
-<div class="mb-4">
-    <label class="block text-sm text-gray-500 mb-1">Foto Kamar (bisa lebih dari 1)</label>
-    @if($kamar && $kamar->foto_kamar)
-    <div class="grid grid-cols-4 gap-2 mb-2">
-        @foreach(json_decode($kamar->foto_kamar, true) ?? [] as $foto)
-        <img src="{{ Storage::url($foto) }}" class="h-24 w-full object-cover rounded-lg">
-        @endforeach
-    </div>
-    <p class="text-xs text-gray-400 mb-2">Foto saat ini. Upload baru untuk menambah.</p>
-    @endif
-    <input type="file" name="foto_kamar[]" accept="image/*" multiple
-        class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm">
-    <p class="text-xs text-gray-400 mt-1">Tahan Ctrl/Cmd untuk pilih beberapa foto sekaligus</p>
-</div>
-
-            {{-- Fasilitas Kamar --}}
             <div class="mb-4">
-                <label class="block text-sm text-gray-500 mb-2">Fasilitas Kamar</label>
-                <div class="grid grid-cols-3 gap-2">
-                    @php
-                    $fasilitasList = ['AC', 'WiFi', 'KM Dalam', 'Lemari', 'Kasur', 'Meja Belajar', 'Kursi', 'TV', 'Kulkas', 'Dispenser', 'Jendela', 'Kipas Angin'];
-                    $selected = old('fasilitas', $kamar->fasilitas ?? []);
-                    @endphp
-                    @foreach($fasilitasList as $item)
-                    <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                        <input type="checkbox" name="fasilitas[]" value="{{ $item }}"
-                            {{ in_array($item, $selected) ? 'checked' : '' }}
-                            class="rounded border-gray-300 text-[#6C8B6B]">
-                        {{ $item }}
-                    </label>
+                <label class="block text-sm text-gray-500 mb-1">Foto Kamar (bisa lebih dari 1)</label>
+                @if($kamar && $kamar->foto_kamar)
+                <div class="grid grid-cols-4 gap-2 mb-2">
+                    @foreach($kamar->foto_kamar as $foto)
+                    <img src="{{ Storage::url($foto) }}" class="h-24 w-full object-cover rounded-lg">
                     @endforeach
                 </div>
+                <p class="text-xs text-gray-400 mb-2">Foto saat ini. Upload baru untuk menambah.</p>
+                @endif
+                <input type="file" name="foto_kamar[]" accept="image/*" multiple
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm">
+                <p class="text-xs text-gray-400 mt-1">Tahan Ctrl/Cmd untuk pilih beberapa foto sekaligus</p>
+            </div>
+
+            {{-- Fasilitas Kamar - Input Manual --}}
+            <div class="mb-4">
+                <label class="block text-sm text-gray-500 mb-2">Fasilitas Kamar</label>
+
+                <div id="fasilitas-list" class="flex flex-wrap gap-2 mb-3 min-h-[40px]">
+                    @php $selected = old('fasilitas', $kamar->fasilitas ?? []); @endphp
+                    @foreach($selected as $item)
+                    <div class="fasilitas-item flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium"
+                         style="background:#f0f5f1;color:#3a5c3a;">
+                        <span>{{ $item }}</span>
+                        <input type="hidden" name="fasilitas[]" value="{{ $item }}">
+                        <button type="button" onclick="hapusFasilitas(this)"
+                            style="background:none;border:none;cursor:pointer;color:#6C8B6B;font-size:14px;padding:0;margin-left:4px;line-height:1;">✕</button>
+                    </div>
+                    @endforeach
+                </div>
+
+                <div class="flex gap-2">
+                    <input type="text" id="input-fasilitas"
+                        class="flex-1 border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#6C8B6B]"
+                        placeholder="Contoh: AC, Kasur, Lemari..."
+                        onkeydown="if(event.key==='Enter'){event.preventDefault();tambahFasilitas()}">
+                    <button type="button" onclick="tambahFasilitas()"
+                        style="background:#6C8B6B;color:white;padding:10px 20px;border-radius:8px;font-weight:600;border:none;cursor:pointer;font-size:0.85rem;white-space:nowrap;">
+                        + Tambah
+                    </button>
+                </div>
+                <p class="text-xs text-gray-400 mt-1">Ketik fasilitas lalu klik Tambah atau tekan Enter. Klik ✕ untuk menghapus.</p>
             </div>
 
             {{-- Keterangan --}}
@@ -98,5 +99,39 @@
 
         </form>
     </div>
+
+    <script>
+    function tambahFasilitas() {
+        const input = document.getElementById('input-fasilitas');
+        const nilai = input.value.trim();
+        if (!nilai) return;
+
+        const list = document.getElementById('fasilitas-list');
+        const existing = list.querySelectorAll('input[name="fasilitas[]"]');
+        for (let i = 0; i < existing.length; i++) {
+            if (existing[i].value.toLowerCase() === nilai.toLowerCase()) {
+                input.value = '';
+                return;
+            }
+        }
+
+        const div = document.createElement('div');
+        div.className = 'fasilitas-item flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium';
+        div.style.cssText = 'background:#f0f5f1;color:#3a5c3a;';
+        div.innerHTML = `
+            <span>${nilai}</span>
+            <input type="hidden" name="fasilitas[]" value="${nilai}">
+            <button type="button" onclick="hapusFasilitas(this)"
+                style="background:none;border:none;cursor:pointer;color:#6C8B6B;font-size:14px;padding:0;margin-left:4px;line-height:1;">✕</button>
+        `;
+        list.appendChild(div);
+        input.value = '';
+        input.focus();
+    }
+
+    function hapusFasilitas(btn) {
+        btn.closest('.fasilitas-item').remove();
+    }
+    </script>
 
 </x-admin-layout>

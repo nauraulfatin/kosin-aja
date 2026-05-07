@@ -8,20 +8,12 @@ class InformasiKos extends Model
 {
     protected $table = 'informasi_kos';
 
-    protected $fillable = [
-        'user_id',
-        'nama_kos',
-        'deskripsi',
-        'alamat',
-        'kota',
-        'no_telepon',
-        'harga_mulai',
-        'foto_utama',
-        'foto_galeri',
-        'fasilitas',
-        'tipe_kos',
-        'status',
-    ];
+   protected $fillable = [
+    'user_id', 'nama_kos', 'deskripsi', 'alamat', 'kota',
+    'latitude', 'longitude',
+    'no_telepon', 'harga_mulai', 'foto_utama', 'foto_galeri',
+    'fasilitas', 'tipe_kos', 'status',
+];
 
     protected $casts = [
         'foto_galeri' => 'array',
