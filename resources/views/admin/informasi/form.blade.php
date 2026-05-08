@@ -334,7 +334,7 @@
                 {{-- Foto Utama & Galeri --}}
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                     <h2 class="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-4">
-                        <span class="text-lg">📷</span>
+                        <span class="text-lg"></span>
                         7. Foto Kos
                     </h2>
 
