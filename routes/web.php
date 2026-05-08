@@ -78,5 +78,7 @@ Route::get('/katalog/{id}', function($id) {
     return view('katalog.detail', compact('kos'));
 })->name('katalog.detail');
 
+Route::get('/katalog/{id}', [HomeController::class, 'detail'])->name('katalog.detail');
+
 
 require __DIR__.'/auth.php';
