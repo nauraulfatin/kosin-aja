@@ -331,8 +331,7 @@
                 <button type="submit" class="btn-primary">Logout</button>
             </form>
             @else
-            <button onclick="document.getElementById('modal-masuk').style.display='flex'"
-                class="btn-outline">Masuk</button>
+            <a href="{{ route('login') }}" class="btn-outline">Masuk</a>
             @endauth
         </div>
     </nav>
@@ -395,47 +394,7 @@
         <div class="footer-bottom">COPYRIGHT ORBIT</div>
     </footer>
 
-    {{-- MODAL MASUK --}}
-    <div id="modal-masuk"
-        style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.3); align-items:center; justify-content:center;"
-        onclick="if(event.target===this)this.style.display='none'">
-        <div
-            style="position:relative;background:#FDFAF4;border-radius:24px;padding:48px 40px;width:560px;max-width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);">
-
-            <button onclick="document.getElementById('modal-masuk').style.display='none'"
-                style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.4rem;color:#8a9e8c;cursor:pointer;">✕</button>
-
-            <h2
-                style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.4rem;color:#1a2e1c;margin-bottom:8px;">
-                Masuk ke KosinAja</h2>
-            <p style="font-size:0.9rem;color:#8a9e8c;margin-bottom:32px;">Pilih masuk sebagai</p>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-
-                {{-- Penghuni --}}
-                <a href="{{ route('login') }}?role=penghuni"
-                    style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px 20px;border:1.5px solid #e8efe9;border-radius:16px;background:#fff;text-decoration:none;transition:all 0.2s;cursor:pointer;"
-                    onmouseover="this.style.borderColor='#7CA385';this.style.boxShadow='0 8px 24px rgba(124,163,133,0.15)'"
-                    onmouseout="this.style.borderColor='#e8efe9';this.style.boxShadow='none'">
-                    <img src="{{ asset('penghuni.png') }}" alt="Penghuni"
-                        style="width:100px;height:120px;object-fit:contain;">
-                    <span
-                        style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:0.95rem;color:#1a2e1c;">Penghuni</span>
-                </a>
-
-                {{-- Admin/Owner --}}
-                <a href="{{ route('login') }}?role=admin"
-                    style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px 20px;border:1.5px solid #e8efe9;border-radius:16px;background:#fff;text-decoration:none;transition:all 0.2s;cursor:pointer;"
-                    onmouseover="this.style.borderColor='#7CA385';this.style.boxShadow='0 8px 24px rgba(124,163,133,0.15)'"
-                    onmouseout="this.style.borderColor='#e8efe9';this.style.boxShadow='none'">
-                    <img src="{{ asset('admin.png') }}" alt="Admin/Owner"
-                        style="width:100px;height:120px;object-fit:contain;">
-                    <span
-                        style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:0.95rem;color:#1a2e1c;">Admin/Owner</span>
-                </a>
-
-            </div>
-        </div>
+    </div>
     </div>
 
 </body>
