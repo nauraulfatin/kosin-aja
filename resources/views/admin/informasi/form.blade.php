@@ -25,7 +25,7 @@
                 {{-- SECTION 1: Informasi Dasar --}}
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                     <h2 class="text-sm font-semibold text-gray-700 mb-4">
-                        1. Informasi Dasar
+                        Informasi Dasar
                     </h2>
 
 
@@ -73,7 +73,7 @@
                 {{-- SECTION 2: Alamat Kos --}}
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                     <h2 class="text-sm font-semibold text-gray-700 mb-4">
-                        2. Alamat Kos
+                        Alamat Kos
                     </h2>
 
                     {{-- Alamat Lengkap --}}
@@ -116,12 +116,23 @@
                 {{-- SECTION 3: Lokasi Kos (Peta) --}}
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                     <h2 class="text-sm font-semibold text-gray-700 mb-4">
-                        3. Lokasi Kos
+                        Lokasi Kos
                     </h2>
 
-                    {{-- Petunjuk --}}
-                    <div class="mb-3 p-3 rounded-lg text-xs text-gray-500" style="background:#f0f5f1;">
-                        Pilih lokasi kos Anda di peta dengan klik pada titik yang sesuai
+                    <div class="mb-4 p-4 rounded-xl border border-[#dbe8dc]" style="background:#f8fbf8;">
+                        <p class="text-xs font-semibold text-gray-700 mb-2">Cara menentukan lokasi kos:</p>
+
+                        <ol class="text-xs text-gray-600 list-decimal list-inside space-y-1 leading-relaxed">
+                            <li>Ketik nama lokasi pada kolom pencarian <span class="font-medium">atau</span> klik
+                                langsung pada peta</li>
+                            <li>Marker akan otomatis berpindah ke titik yang dipilih</li>
+                            <li>Koordinat Latitude & Longitude terisi otomatis</li>
+                            <li>Pastikan titik sesuai lokasi kos agar penghuni tidak salah alamat</li>
+                        </ol>
+
+                        <p class="text-[11px] text-gray-400 mt-3">
+                            Contoh koordinat: <span class="font-mono">-8.2192, 114.3691</span>
+                        </p>
                     </div>
 
                     {{-- Search Box --}}
@@ -173,8 +184,26 @@
                     </div>
                 </div>
 
+                {{-- ===== END KOLOM KANAN ===== --}}
+                {{-- SPACE / PEMISAH --}}
+                <div class="h-6"></div>
+
+                {{-- Tombol Aksi (GLOBAL FORM) --}}
+                <div class="flex gap-3 mt-4">
+                    <a href="{{ route('admin.informasi.index') }}" class="flex-1 text-center bg-white border border-[#6C8B6B] text-[#6C8B6B]
+    py-3 rounded-xl font-semibold text-sm hover:bg-[#f0f5f1] transition">
+                        Batal
+                    </a>
+                    <button type="submit"
+                        class="flex-1 flex items-center justify-center gap-2 text-white py-3 rounded-xl font-semibold text-sm transition"
+                        style="background:#6C8B6B;">
+                        {{ $kos ? 'Update Informasi Kos' : 'Simpan Informasi Kos' }}
+                    </button>
+                </div>
             </div>
             {{-- ===== END KOLOM KIRI ===== --}}
+
+
 
             {{-- ===== KOLOM KANAN ===== --}}
             <div class="space-y-6">
@@ -183,7 +212,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                     <h2 class="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-4">
                         <span class="text-lg"></span>
-                        4. Informasi Kontak
+                        Informasi Kontak
                     </h2>
 
                     <div class="mb-4">
@@ -215,7 +244,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                     <h2 class="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-4">
                         <span class="text-lg"></span>
-                        5. Informasi Harga
+                        Informasi Harga
                     </h2>
 
                     <div class="grid grid-cols-2 gap-4">
@@ -245,10 +274,27 @@
                 </div>
 
                 {{-- SECTION 6: Fasilitas Kos --}}
+
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                     <h2 class="text-sm font-semibold text-gray-700 mb-4">
-                        6. Fasilitas Kos
+                        Fasilitas Kos
                     </h2>
+                    {{-- Petunjuk Fasilitas --}}
+                    <div class="mb-4 p-4 rounded-xl" style="background:#f0f5f1; border:1px solid #dbe8dc;">
+                        <p class="text-xs font-semibold text-gray-700 mb-2">
+                            Cara menambahkan fasilitas: </p>
+
+                        <ol class="text-xs text-gray-600 list-decimal list-inside space-y-1 leading-relaxed">
+                            <li>Ketik fasilitas pada kolom input (contoh: WiFi, AC, Kamar Mandi Dalam)</li>
+                            <li>Klik tombol <span class="font-medium">Tambah</span> atau tekan <span
+                                    class="font-medium">Enter</span></li>
+                            <li>Fasilitas dapat dihapus dengan menekan tombol <span class="font-medium">×</span></li>
+                        </ol>
+
+                        <p class="text-[11px] text-gray-400 mt-3">
+                            Tips: gunakan kata singkat agar tampilan lebih rapi, contoh “WiFi”, “AC”, “Dapur Bersama”
+                        </p>
+                    </div>
 
                     @php
                     $selectedFasilitas = old('fasilitas', $kos->fasilitas ?? []);
@@ -282,9 +328,7 @@
                         </button>
                     </div>
 
-                    <p class="text-xs text-gray-400 mt-2">
-                        Ketik fasilitas lalu klik Tambah atau tekan Enter
-                    </p>
+
                 </div>
 
                 <script>
@@ -331,52 +375,213 @@
                 }
                 </script>
 
-                {{-- Foto Utama & Galeri --}}
+                {{-- SECTION 7: Foto Kos --}}
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                     <h2 class="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-4">
                         <span class="text-lg"></span>
-                        7. Foto Kos
+                        Foto Kos
                     </h2>
 
-                    <div class="mb-4">
-                        <label class="block text-xs text-gray-500 mb-1">Foto Utama</label>
-                        @if($kos && $kos->foto_utama)
-                        <div class="mb-2">
-                            <img src="{{ Storage::url($kos->foto_utama) }}" class="h-28 rounded-lg object-cover">
-                            <p class="text-xs text-gray-400 mt-1">Foto saat ini. Upload baru untuk mengganti.</p>
+                    <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+                        {{-- Petunjuk Foto Kos --}}
+                        <div class="mb-4 p-4 rounded-xl" style="background:#f0f5f1; border:1px solid #dbe8dc;">
+                            <p class="text-xs font-semibold text-gray-700 mb-2">
+                                Cara upload foto kos:
+                            </p>
+
+                            <ol class="text-xs text-gray-600 list-decimal list-inside space-y-1 leading-relaxed">
+                                <li>Klik area upload atau tarik (drag) foto ke kotak upload</li>
+                                <li>Bisa memilih lebih dari satu foto sekaligus</li>
+                                <li>Foto akan langsung muncul sebagai preview sebelum disimpan</li>
+                                <li>Foto pertama otomatis dijadikan foto utama</li>
+                                <li>Foto dapat dihapus dengan tombol <span class="font-medium">×</span></li>
+                            </ol>
+
+                            <p class="text-[11px] text-gray-400 mt-3">
+                                Format yang didukung: JPG, PNG, JPEG. Maksimal 5MB per foto.
+                            </p>
                         </div>
-                        @endif
-                        <input type="file" name="foto_utama" accept="image/*"
-                            class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-500 file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:text-white cursor-pointer"
-                            style="--file-bg:#6C8B6B;">
-                        @error('foto_utama')<p class="text-red-400 text-xs mt-1">{{ $message }}</p>@enderror
+                        <div class="flex items-center justify-between mb-1">
+                            <label class="block text-sm font-medium text-gray-600">
+                                Upload Foto Kos<span class="text-red-400">*</span>
+                            </label>
+                            <span class="text-xs text-gray-400" id="foto-count">
+                                {{ count($existingFotos ?? []) }} foto dipilih
+                            </span>
+                        </div>
+
+
+
+                        @php
+                        $existingFotos = old(
+                        'existing_foto',
+                        is_array($kos->foto_galeri ?? null)
+                        ? $kos->foto_galeri
+                        : (json_decode($kos->foto_galeri ?? '[]', true) ?: [])
+                        );
+                        @endphp
+
+                        {{-- Upload Area --}}
+                        <label for="foto-input" id="drop-area"
+                            class="relative flex flex-col items-center justify-center w-full border-2 border-dashed border-gray-200 rounded-2xl cursor-pointer hover:border-[#6C8B6B] hover:bg-[#f9fbf9] transition text-center py-10 px-6">
+
+                            <svg class="w-12 h-12 text-[#6C8B6B] mb-3" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                            </svg>
+
+                            <p class="text-sm font-semibold text-gray-600">Klik atau Drag foto ke sini</p>
+                            <p class="text-xs text-gray-400 mt-1">
+                                Bisa upload banyak foto sekaligus (PNG, JPG, JPEG max 5MB/foto)
+                            </p>
+
+                            <input type="file" name="foto_galeri[]" id="foto-input" accept="image/*" multiple
+                                class="hidden">
+                        </label>
+
+                        {{-- Preview Gallery --}}
+                        <div id="preview-container" class="flex flex-wrap gap-4 mt-5">
+                            @foreach($existingFotos as $index => $foto)
+                            <div
+                                class="foto-preview relative w-32 h-32 rounded-xl overflow-hidden border border-gray-200 group">
+
+                                <img src="{{ asset('storage/' . $foto) }}" class="w-full h-full object-cover">
+
+                                @if($index === 0)
+                                <span
+                                    class="absolute top-2 left-2 bg-[#6C8B6B] text-white text-[10px] px-2 py-1 rounded-md font-medium">
+                                    Utama
+                                </span>
+                                @endif
+
+                                <button type="button" onclick="hapusExistingFoto(this)"
+                                    class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center text-sm font-bold hover:bg-red-500 transition z-20">
+                                    ✕
+                                </button>
+
+                                <input type="hidden" name="existing_foto[]" value="{{ $foto }}">
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
 
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">Foto Galeri (bisa lebih dari 1)</label>
-                        <input type="file" name="foto_galeri[]" accept="image/*" multiple
-                            class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-500 file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium cursor-pointer">
-                        <p class="text-xs text-gray-400 mt-1">Tahan Ctrl/Cmd untuk upload beberapa foto sekaligus</p>
-                    </div>
-                </div>
+                    <script>
+                    const fotoInput = document.getElementById('foto-input');
+                    const previewContainer = document.getElementById('preview-container');
+                    const fotoCount = document.getElementById('foto-count');
+                    const dropArea = document.getElementById('drop-area');
 
-                {{-- Tombol Aksi --}}
-                <div class="flex gap-3">
-                    <a href="{{ route('admin.informasi.index') }}"
-                        class="flex-1 text-center border border-gray-200 text-gray-600 py-3 rounded-xl font-semibold text-sm hover:bg-gray-50 transition">
-                        Batal
-                    </a>
-                    <button type="submit"
-                        class="flex-1 flex items-center justify-center gap-2 text-white py-3 rounded-xl font-semibold text-sm transition"
-                        style="background:#6C8B6B;">
-                        {{ $kos ? 'Update Informasi Kos' : 'Simpan Informasi Kos' }}
-                    </button>
+                    let selectedFiles = [];
+
+                    function updateFotoCount() {
+                        const existing = document.querySelectorAll('input[name="existing_foto[]"]').length;
+                        fotoCount.textContent = `${existing + selectedFiles.length} foto dipilih`;
+                    }
+
+                    function renderPreview() {
+                        previewContainer.querySelectorAll('.new-photo').forEach(el => el.remove());
+
+                        selectedFiles.forEach((file, index) => {
+                            const reader = new FileReader();
+
+                            reader.onload = function(e) {
+                                const div = document.createElement('div');
+                                div.className =
+                                    'foto-preview new-photo relative w-32 h-32 rounded-xl overflow-hidden border border-gray-200 group';
+
+                                div.innerHTML = `
+                <img src="${e.target.result}" class="w-full h-full object-cover">
+
+                ${(document.querySelectorAll('.foto-preview').length === 0 && index === 0) ? `
+                    <span class="absolute top-2 left-2 bg-[#6C8B6B] text-white text-[10px] px-2 py-1 rounded-md font-medium">
+                        Utama
+                    </span>
+                ` : ''}
+
+                <button type="button"
+                    class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center text-sm font-bold hover:bg-red-500 transition z-20"
+                    onclick="hapusPreview(${index})">
+                    ✕
+                </button>
+            `;
+
+                                previewContainer.appendChild(div);
+                            };
+
+                            reader.readAsDataURL(file);
+                        });
+
+                        updateFotoCount();
+                    }
+
+                    function hapusPreview(index) {
+                        selectedFiles.splice(index, 1);
+
+                        const dt = new DataTransfer();
+                        selectedFiles.forEach(file => dt.items.add(file));
+                        fotoInput.files = dt.files;
+
+                        renderPreview();
+                    }
+
+                    function hapusExistingFoto(button) {
+                        button.closest('.foto-preview').remove();
+                        updateFotoCount();
+                    }
+
+                    fotoInput.addEventListener('change', function(e) {
+                        const files = Array.from(e.target.files);
+
+                        files.forEach(file => {
+                            if (file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024) {
+                                selectedFiles.push(file);
+                            }
+                        });
+
+                        const dt = new DataTransfer();
+                        selectedFiles.forEach(file => dt.items.add(file));
+                        fotoInput.files = dt.files;
+
+                        renderPreview();
+                    });
+
+                    ['dragenter', 'dragover'].forEach(eventName => {
+                        dropArea.addEventListener(eventName, e => {
+                            e.preventDefault();
+                            dropArea.classList.add('border-[#6C8B6B]');
+                        });
+                    });
+
+                    ['dragleave', 'drop'].forEach(eventName => {
+                        dropArea.addEventListener(eventName, e => {
+                            e.preventDefault();
+                            dropArea.classList.remove('border-[#6C8B6B]');
+                        });
+                    });
+
+                    dropArea.addEventListener('drop', e => {
+                        const files = Array.from(e.dataTransfer.files);
+
+                        files.forEach(file => {
+                            if (file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024) {
+                                selectedFiles.push(file);
+                            }
+                        });
+
+                        const dt = new DataTransfer();
+                        selectedFiles.forEach(file => dt.items.add(file));
+                        fotoInput.files = dt.files;
+
+                        renderPreview();
+                    });
+
+                    updateFotoCount();
+                    </script>
+
                 </div>
 
             </div>
-            {{-- ===== END KOLOM KANAN ===== --}}
-
-        </div>
     </form>
 
     {{-- ===== SCRIPTS ===== --}}

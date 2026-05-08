@@ -7,6 +7,7 @@ use App\Models\Kamar;
 use App\Models\Penghuni;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 class KamarController extends Controller
 {
@@ -100,7 +101,7 @@ class KamarController extends Controller
         ]);
 
         // Ambil foto lama
-        $fotoKamar = $kamar->foto_kamar ?? [];
+        $fotoKamar = $request->existing_foto ?? [];
 
         // Tambahkan foto baru
         if ($request->hasFile('foto_kamar')) {
