@@ -24,12 +24,12 @@ class DashboardController extends Controller
         $totalKamar   = Kamar::where('user_id', $adminId)->count();
         $kamarKosong  = Kamar::where('user_id', $adminId)->where('status', 'kosong')->count();
         $kamarTerisi  = Kamar::where('user_id', $adminId)->where('status', 'terisi')->count();
-        $totalPenghuni = Penghuni::where('user_id', $adminId)->where('status', 'aktif')->count();
+        $totalPenghuni = Penghuni::where('status', 'aktif')
+                         ->count();
 
-        $riwayatTerakhir = Penghuni::where('user_id', $adminId)
-                                   ->latest()
-                                   ->take(3)
-                                   ->get();
+        $riwayatTerakhir = Penghuni::latest()
+                           ->take(3)
+                           ->get();
 
         return view('admin.dashboard', compact(
             'totalKamar',

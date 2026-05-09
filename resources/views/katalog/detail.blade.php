@@ -560,34 +560,39 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-    window.addEventListener('load', function() {
-        const map = L.map('map-detail').setView([{
-            {
-                $kos - > latitude
-            }
-        }, {
-            {
-                $kos - > longitude
-            }
-        }], 16);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    <link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+window.addEventListener('load', function () {
+
+    const lat = {{ $kos->latitude }};
+    const lng = {{ $kos->longitude }};
+
+    const map = L.map('map-detail').setView(
+        [lat, lng],
+        16
+    );
+
+    L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
             attribution: '© OpenStreetMap'
-        }).addTo(map);
-        L.marker([{
-                {
-                    $kos - > latitude
-                }
-            }, {
-                {
-                    $kos - > longitude
-                }
-            }])
-            .addTo(map)
-            .bindPopup('<b>{{ $kos->nama_kos }}</b>')
-            .openPopup();
-    });
-    </script>
+        }
+    ).addTo(map);
+
+    L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup(
+            '<b>{{ $kos->nama_kos }}</b>'
+        )
+        .openPopup();
+
+});
+</script>
     @endif
 
     {{-- DAFTAR KAMAR --}}
@@ -633,12 +638,46 @@
             <div class="kamar-harga">
                 <div class="harga">Rp {{ number_format($kamar->harga, 0, ',', '.') }}</div>
                 <div class="per">/ bulan</div>
-                <div class="sisa" style="color:{{ $kamar->status == 'kosong' ? '#dc2626' : '#8a9e8c' }}">
-                    {{ $kamar->status == 'kosong' ? 'Tersedia' : 'Terisi' }}
-                </div>
-                @if($kamar->status == 'kosong')
-                <a href="#hubungi" class="btn-detail-kamar">Lihat Detail</a>
-                @endif
+                <div style="margin-top:8px;">
+
+    @if($kamar->status == 'kosong')
+
+        <span style="
+            display:inline-flex;
+            align-items:center;
+            padding:5px 12px;
+            border-radius:999px;
+            background:#dcfce7;
+            color:#166534;
+            font-size:0.74rem;
+            font-weight:700;
+        ">
+
+            Tersedia
+
+        </span>
+
+    @else
+
+        <span style="
+            display:inline-flex;
+            align-items:center;
+            padding:5px 12px;
+            border-radius:999px;
+            background:#fee2e2;
+            color:#991b1b;
+            font-size:0.74rem;
+            font-weight:700;
+        ">
+
+            Terisi
+
+        </span>
+
+    @endif
+
+</div>
+                <a href="{{ route('katalog.kamar.detail', [$kos->id, $kamar->id]) }}" class="btn-detail-kamar">Lihat Detail</a>
             </div>
 
         </div>

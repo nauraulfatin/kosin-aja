@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Kamar extends Model
 {
     protected $fillable = [
-        'user_id', 'nomor_kamar', 'harga', 'status',
-        'foto_kamar', 'fasilitas', 'keterangan'
-    ];
+    'user_id', 'nomor_kamar', 'tipe_kamar', 'kapasitas', 'lantai',
+    'ukuran', 'harga', 'status', 'foto_kamar', 'fasilitas',
+    'keterangan', 'deskripsi', 'metode_pembayaran',
+];
 
     protected $casts = [
-    'fasilitas'  => 'array',
-    'foto_kamar' => 'array',
+    'fasilitas'         => 'array',
+    'foto_kamar'        => 'array',
+    'metode_pembayaran' => 'array',
 ];
 
     public function admin()
@@ -25,4 +27,5 @@ class Kamar extends Model
     {
         return $this->hasOne(Penghuni::class);
     }
+
 }

@@ -24,4 +24,14 @@ class HomeController extends Controller
     return view('katalog.detail', compact('kos', 'kamars'));
 }
 
+    public function detailKamar($kosId, $kamarId)
+{
+    $kos   = \App\Models\InformasiKos::with('admin')->findOrFail($kosId);
+    $kamar = \App\Models\Kamar::findOrFail($kamarId);
+    //$aturan = \App\Models\Aturan::where('user_id', $kos->user_id)->get();
+
+    return view('katalog.detail-kamar', compact('kos', 'kamar',));
+}
+
+
 }

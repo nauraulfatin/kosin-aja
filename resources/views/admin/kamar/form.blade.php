@@ -259,23 +259,51 @@
                         @error('kapasitas')<p class="text-red-400 text-xs mt-1">{{ $message }}</p>@enderror
                     </div>
 
-                    {{-- Lantai --}}
-                    <div>
-                        <label class="block text-sm font-medium text-gray-600 mb-1.5">Lantai</label>
-                        <select name="lantai"
-                            class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#6C8B6B] focus:ring-1 focus:ring-[#6C8B6B] transition bg-white text-gray-700">
-                            <option value="">Pilih lantai (opsional)</option>
-                            <option value="1" {{ old('lantai', $kamar->lantai ?? '') == '1' ? 'selected' : '' }}>
-                                Lantai
-                                1</option>
-                            <option value="2" {{ old('lantai', $kamar->lantai ?? '') == '2' ? 'selected' : '' }}>
-                                Lantai
-                                2</option>
-                            <option value="3" {{ old('lantai', $kamar->lantai ?? '') == '3' ? 'selected' : '' }}>
-                                Lantai
-                                3</option>
-                        </select>
-                    </div>
+                   {{-- Ukuran Kamar --}}
+<div>
+    <label class="block text-sm font-medium text-gray-600 mb-1.5">Ukuran Kamar</label>
+    <input type="text" name="ukuran" value="{{ old('ukuran', $kamar->ukuran ?? '') }}"
+        class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#6C8B6B] focus:ring-1 focus:ring-[#6C8B6B] transition"
+        placeholder="Contoh: 3x3">
+    <p class="text-xs text-gray-400 mt-1">Format: panjang x lebar (meter)</p>
+</div>
+
+{{-- Lantai --}}
+<div>
+    <label class="block text-sm font-medium text-gray-600 mb-1.5">Lantai</label>
+    <select name="lantai"
+        class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#6C8B6B] focus:ring-1 focus:ring-[#6C8B6B] transition bg-white text-gray-700">
+        <option value="">Pilih lantai</option>
+        <option value="1" {{ old('lantai', $kamar->lantai ?? '') == 1 ? 'selected' : '' }}>Lantai 1</option>
+        <option value="2" {{ old('lantai', $kamar->lantai ?? '') == 2 ? 'selected' : '' }}>Lantai 2</option>
+        <option value="3" {{ old('lantai', $kamar->lantai ?? '') == 3 ? 'selected' : '' }}>Lantai 3</option>
+    </select>
+</div>
+
+{{-- Metode Pembayaran --}}
+<div>
+    <label class="block text-sm font-medium text-gray-600 mb-1.5">Metode Pembayaran</label>
+    <div class="flex flex-wrap gap-2">
+        @php $selectedMetode = old('metode_pembayaran', $kamar->metode_pembayaran ?? []); @endphp
+        @foreach(['Transfer Bank', 'QRIS', 'Tunai', 'E-Wallet'] as $metode)
+        <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+            <input type="checkbox" name="metode_pembayaran[]" value="{{ $metode }}"
+                {{ in_array($metode, $selectedMetode) ? 'checked' : '' }}
+                class="rounded border-gray-300 text-[#6C8B6B]">
+            {{ $metode }}
+        </label>
+        @endforeach
+    </div>
+</div>
+
+{{-- Deskripsi Kamar --}}
+<div>
+    <label class="block text-sm font-medium text-gray-600 mb-1.5">Deskripsi Kamar</label>
+    <textarea name="deskripsi" rows="4"
+        class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#6C8B6B] focus:ring-1 focus:ring-[#6C8B6B] transition resize-none"
+        placeholder="Deskripsikan kamar ini...">{{ old('deskripsi', $kamar->deskripsi ?? '') }}</textarea>
+</div>
+
                 </div>
             </div>
         </div>

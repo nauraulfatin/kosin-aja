@@ -1,116 +1,285 @@
 <x-admin-layout>
 
+    {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
-        <h1 class="text-xl font-semibold text-gray-700">Informasi Kos</h1>
-        <span class="text-gray-600 font-medium">Halo, {{ auth()->user()->name }}</span>
+
+        <div>
+
+            <h1 class="text-2xl font-bold text-[#0F0937]">
+                Informasi Kos
+            </h1>
+
+            <p class="text-gray-500 mt-1">
+                Informasi lengkap kos yang tampil di katalog
+            </p>
+
+        </div>
+
+        <a href="{{ route('admin.informasi.edit') }}"
+           class="bg-[#6C8B6B]
+                  hover:bg-[#587357]
+                  text-white px-5 py-3 rounded-xl
+                  transition">
+
+            Edit Informasi
+
+        </a>
+
     </div>
 
-    @if(session('success'))
-    <div style="background:#dcfce7;color:#16a34a;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:0.9rem;">
-        {{ session('success') }}
+    {{-- Jika belum ada data --}}
+    @if(!$kos)
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 text-center">
+
+            <h2 class="text-lg font-semibold text-[#0F0937] mb-2">
+                Informasi kos belum tersedia
+            </h2>
+
+            <p class="text-gray-500 mb-6">
+                Lengkapi informasi kos terlebih dahulu
+            </p>
+
+            <a href="{{ route('admin.informasi.create') }}"
+               class="bg-[#6C8B6B]
+                      hover:bg-[#587357]
+                      text-white px-5 py-3 rounded-xl transition">
+
+                Tambah Informasi
+
+            </a>
+
+        </div>
+
+    @else
+
+        <div class="space-y-6">
+
+            {{-- Informasi Utama --}}
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+
+                <div class="flex items-start justify-between gap-6">
+
+                    <div class="flex-1">
+
+                        {{-- Nama --}}
+                        <h2 class="text-2xl font-bold text-[#0F0937]">
+
+                            {{ $kos->nama_kos }}
+
+                        </h2>
+
+                        {{-- Tipe --}}
+                        <div class="mt-3">
+
+                            <span class="bg-[#F8F5F0]
+                                         text-[#6C8B6B]
+                                         px-4 py-2 rounded-full
+                                         text-sm font-medium">
+
+                                Kos {{ $kos->tipe_kos }}
+
+                            </span>
+
+                        </div>
+
+                        {{-- Alamat --}}
+<div class="mt-6">
+
+    <p class="text-sm text-gray-500 mb-2">
+        Alamat
+    </p>
+
+    <div class="space-y-3">
+
+        {{-- Alamat Lengkap --}}
+        <div>
+
+            <p class="text-xs text-gray-400 mb-1">
+                Alamat Lengkap
+            </p>
+
+            <div class="border border-gray-200
+                        rounded-xl px-4 py-3
+                        text-sm text-gray-700">
+
+                {{ $kos->alamat }}
+
+            </div>
+
+        </div>
+
+        {{-- Kota & Provinsi --}}
+        <div class="grid grid-cols-2 gap-4">
+
+            {{-- Kabupaten / Kota --}}
+            <div>
+
+                <p class="text-xs text-gray-400 mb-1">
+                    Kabupaten / Kota
+                </p>
+
+                <div class="border border-gray-200
+                            rounded-xl px-4 py-3
+                            text-sm text-gray-700">
+
+                    {{ $kos->kota ?? '-' }}
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
+
+</div>
+
+                        {{-- Deskripsi --}}
+                        <div class="mt-6">
+
+                            <p class="text-sm text-gray-500 mb-1">
+                                Deskripsi
+                            </p>
+
+                            <p class="text-gray-700 leading-relaxed">
+
+                                {{ $kos->deskripsi }}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                   {{-- Foto --}}
+<div class="w-[320px] shrink-0">
+
+    @if($kos->foto_utama)
+
+        <img src="{{ asset('storage/' . $kos->foto_utama) }}"
+             class="w-full h-[220px]
+                    object-cover rounded-2xl border border-gray-100">
+
+    @else
+
+        <div class="w-full h-[220px]
+                    bg-gray-100 rounded-2xl
+                    flex items-center justify-center
+                    text-gray-400 text-sm">
+
+            Belum ada foto
+
+        </div>
+
     @endif
 
-    @if(!$kos)
-        {{-- Belum ada data --}}
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-12 text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
-            <h3 class="text-lg font-bold text-gray-600 mb-2">Belum ada informasi kos</h3>
-            <p class="text-sm text-gray-400 mb-6">Tambahkan informasi kos Anda agar tampil di katalog</p>
-            <a href="{{ route('admin.informasi.create') }}"
-                style="display:inline-block;background:#6C8B6B;color:white;padding:10px 28px;border-radius:8px;font-weight:600;text-decoration:none;">
-                + Tambah Informasi Kos
-            </a>
-        </div>
-    @else
-        {{-- Sudah ada data --}}
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-
-            {{-- Foto Utama --}}
-            @if($kos->foto_utama)
-            <div class="mb-6">
-                <img src="{{ Storage::url($kos->foto_utama) }}" alt="Foto Kos"
-                     class="w-full max-h-64 object-cover rounded-xl">
-            </div>
-            @endif
-
-            {{-- Info --}}
-            <div class="flex items-start justify-between mb-6">
-                <div>
-                    <h2 class="text-2xl font-bold text-[#0F0937]">{{ $kos->nama_kos }}</h2>
-                    <p class="text-gray-500 text-sm mt-1">{{ $kos->alamat }}{{ $kos->kota ? ', '.$kos->kota : '' }}</p>
+</div>
                 </div>
-                <a href="{{ route('admin.informasi.edit') }}"
-                    style="display:inline-block;background:#6C8B6B;color:white;padding:8px 20px;border-radius:8px;font-weight:600;text-decoration:none;font-size:0.85rem;">
-                    Edit Informasi
-                </a>
+
             </div>
 
-            <table class="w-full text-sm mb-6">
-                <tr>
-                    <td class="py-2 text-gray-500 w-36">Tipe Kos</td>
-                    <td class="py-2 text-gray-400 w-4">:</td>
-                    <td class="py-2 text-gray-800 font-medium capitalize">{{ $kos->tipe_kos }}</td>
-                </tr>
-                <tr>
-                    <td class="py-2 text-gray-500">No. Telepon</td>
-                    <td class="py-2 text-gray-400">:</td>
-                    <td class="py-2 text-gray-800 font-medium">{{ $kos->no_telepon ?? '-' }}</td>
-                </tr>
-                <tr>
-                    <td class="py-2 text-gray-500">Harga Mulai</td>
-                    <td class="py-2 text-gray-400">:</td>
-                    <td class="py-2 text-gray-800 font-medium">
-                        {{ $kos->harga_mulai ? 'Rp '.number_format($kos->harga_mulai, 0, ',', '.') : '-' }}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="py-2 text-gray-500">Deskripsi</td>
-                    <td class="py-2 text-gray-400">:</td>
-                    <td class="py-2 text-gray-800">{{ $kos->deskripsi ?? '-' }}</td>
-                </tr>
-            </table>
+            {{-- Harga --}}
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
 
-            {{-- Fasilitas --}}
-            @if($kos->fasilitas && count($kos->fasilitas) > 0)
-            <div class="mb-6">
-                <h4 class="font-bold text-[#0F0937] mb-3">Fasilitas</h4>
-                <div class="flex flex-wrap gap-2">
-                    @foreach($kos->fasilitas as $fasilitas)
-                    <span style="background:#f0f5f1;color:#4a5e4c;padding:4px 12px;border-radius:6px;font-size:0.8rem;font-weight:500;">
-                        {{ $fasilitas }}
+                <p class="text-sm text-gray-500 mb-2">
+                    Harga Mulai
+                </p>
+
+                <h2 class="text-2xl font-bold text-[#0F0937]">
+
+                    Rp {{ number_format($kos->harga_mulai, 0, ',', '.') }}
+
+                    <span class="text-sm text-gray-400 font-normal">
+                        / bulan
                     </span>
-                    @endforeach
-                </div>
-            </div>
-            @endif
 
-            {{-- Foto Galeri --}}
-            @if($kos->foto_galeri && count($kos->foto_galeri) > 0)
-            <div>
-                <h4 class="font-bold text-[#0F0937] mb-3">Foto Galeri</h4>
-                <div class="grid grid-cols-4 gap-3">
-                    @foreach($kos->foto_galeri as $foto)
-                    <div class="relative group">
-                        <img src="{{ Storage::url($foto) }}" class="w-full h-24 object-cover rounded-lg">
-                        <form method="POST" action="{{ route('admin.informasi.hapusFoto') }}"
-                            class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition">
-                            @csrf
-                            <input type="hidden" name="foto" value="{{ $foto }}">
-                            <button type="submit"
-                                style="background:rgba(239,68,68,0.9);color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:12px;cursor:pointer;">
-                                ✕
-                            </button>
-                        </form>
-                    </div>
-                    @endforeach
-                </div>
+                </h2>
+
             </div>
-            @endif
+
+            {{-- Lokasi --}}
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+
+                <h2 class="text-lg font-bold text-[#0F0937] mb-4">
+                    Lokasi Kos
+                </h2>
+
+                {{-- Koordinat --}}
+                <div class="grid grid-cols-2 gap-4 mb-5">
+
+                    <div>
+
+                        <p class="text-sm text-gray-500 mb-1">
+                            Latitude
+                        </p>
+
+                        <div class="border border-gray-200
+                                    rounded-xl px-4 py-3 text-sm text-gray-700">
+
+                            {{ $kos->latitude }}
+
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <p class="text-sm text-gray-500 mb-1">
+                            Longitude
+                        </p>
+
+                        <div class="border border-gray-200
+                                    rounded-xl px-4 py-3 text-sm text-gray-700">
+
+                            {{ $kos->longitude }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {{-- Map --}}
+                <div id="map-detail"
+                     class="w-full rounded-2xl border border-gray-200"
+                     style="height:320px;">
+                </div>
+
+            </div>
 
         </div>
+
+    @endif
+
+    {{-- LEAFLET --}}
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    {{-- MAP --}}
+    @if($kos)
+
+        <script>
+
+            const lat = {{ $kos->latitude ?? -8.2192 }};
+            const lng = {{ $kos->longitude ?? 114.3691 }};
+
+            const mapDetail = L.map('map-detail')
+                .setView([lat, lng], 15);
+
+            L.tileLayer(
+                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                {
+                    attribution: '© OpenStreetMap'
+                }
+            ).addTo(mapDetail);
+
+            L.marker([lat, lng]).addTo(mapDetail);
+
+        </script>
+
     @endif
 
 </x-admin-layout>

@@ -59,14 +59,20 @@ class KamarController extends Controller
         }
 
         Kamar::create([
-            'user_id'     => auth()->id(),
-            'nomor_kamar' => $request->nomor_kamar,
-            'harga'       => $request->harga,
-            'status'      => 'kosong', // otomatis kosong saat dibuat
-            'foto_kamar'  => $fotoKamar,
-            'fasilitas'   => $request->fasilitas ?? [],
-            'keterangan'  => $request->keterangan,
-        ]);
+    'user_id'           => auth()->id(),
+    'nomor_kamar'       => $request->nomor_kamar,
+    'tipe_kamar'        => $request->tipe_kamar,
+    'kapasitas'         => $request->kapasitas ?? 1,
+    'lantai'            => $request->lantai,
+    'ukuran'            => $request->ukuran,
+    'harga'             => $request->harga,
+    'status'            => 'kosong',
+    'foto_kamar'        => $fotoKamar,
+    'fasilitas'         => $request->fasilitas ?? [],
+    'keterangan'        => $request->keterangan,
+    'deskripsi'         => $request->deskripsi,
+    'metode_pembayaran' => $request->metode_pembayaran ?? [],
+]);
 
         return redirect()
             ->route('admin.kamar.index')
@@ -112,12 +118,18 @@ class KamarController extends Controller
 
         $kamar->update([
             'nomor_kamar' => $request->nomor_kamar,
-            'harga'       => $request->harga,
-            'foto_kamar'  => $fotoKamar,
-            'fasilitas'   => $request->fasilitas ?? [],
-            'keterangan'  => $request->keterangan,
-            // status otomatis dihandle oleh penghuni
-        ]);
+             'tipe_kamar'        => $request->tipe_kamar,
+    'kapasitas'         => $request->kapasitas ?? 1,
+    'lantai'            => $request->lantai,
+    'ukuran'            => $request->ukuran,
+    'harga'             => $request->harga,
+    'status'            => 'kosong',
+    'foto_kamar'        => $fotoKamar,
+    'fasilitas'         => $request->fasilitas ?? [],
+    'keterangan'        => $request->keterangan,
+    'deskripsi'         => $request->deskripsi,
+    'metode_pembayaran' => $request->metode_pembayaran ?? [],
+]);
 
         return redirect()
             ->route('admin.kamar.index')
