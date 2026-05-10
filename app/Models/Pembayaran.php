@@ -8,25 +8,21 @@ class Pembayaran extends Model
 {
     protected $fillable = [
 
-        'penghuni_id',
+    'penghuni_id',
 
-        'bulan',
+    'total_bayar',
 
-        'tahun',
+    'tanggal_bayar',
 
-        'jumlah_tagihan',
+    'bukti_pembayaran',
 
-        'status',
+    'metode_pembayaran',
 
-        'tanggal_bayar',
+    'catatan',
 
-        'bukti_pembayaran',
+    'status',
 
-        'metode_pembayaran',
-
-        'catatan',
-
-    ];
+];
 
     // =========================
     // RELATION
@@ -36,6 +32,11 @@ class Pembayaran extends Model
     {
         return $this->belongsTo(Penghuni::class);
     }
+
+    public function details()
+{
+    return $this->hasMany(DetailPembayaran::class);
+}
 
     // =========================
     // STATUS BADGE
@@ -56,4 +57,5 @@ class Pembayaran extends Model
             default => 'Unknown',
         };
     }
+
 }

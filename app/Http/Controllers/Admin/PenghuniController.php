@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\User;
 use App\Models\Kamar;
 use App\Models\Penghuni;
 use App\Models\Pembayaran;
+use App\Models\Tagihan;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class PenghuniController extends Controller
 {
@@ -19,11 +22,17 @@ class PenghuniController extends Controller
 
     public function index()
     {
-        $penghunis = Penghuni::with('user', 'kamar')
-                        ->latest()
-                        ->get();
+        $penghunis = Penghuni::with([
+                'user',
+                'kamar'
+            ])
+            ->latest()
+            ->get();
 
-        return view('admin.penghuni.index', compact('penghunis'));
+        return view(
+            'admin.penghuni.index',
+            compact('penghunis')
+        );
     }
 
     // =========================
@@ -32,9 +41,16 @@ class PenghuniController extends Controller
 
     public function create()
     {
-        $kamars = Kamar::where('status', 'kosong')->get();
+        $kamars = Kamar::where(
+                'status',
+                'kosong'
+            )
+            ->get();
 
-        return view('admin.penghuni.create', compact('kamars'));
+        return view(
+            'admin.penghuni.create',
+            compact('kamars')
+        );
     }
 
     // =========================
@@ -45,19 +61,25 @@ class PenghuniController extends Controller
     {
         $request->validate([
 
-            'nama'             => 'required',
-            'email'            => 'required|email|unique:users,email',
-            'password'         => 'required|min:8',
+            'nama' => 'required',
 
-            'nik'              => 'required',
-            'alamat'           => 'required',
-            'no_hp'            => 'required',
+            'email' => 'required|email|unique:users,email',
 
-            'kamar_id'         => 'required',
+            'password' => 'required|min:8',
 
-            'tanggal_masuk'    => 'nullable|date',
+            'nik' => 'required',
 
-            'status'           => 'required',
+            'alamat' => 'required',
+
+            'no_hp' => 'required',
+
+            'kamar_id' => 'required',
+
+            'tanggal_masuk' => 'required|date',
+
+            'masa_kos' => 'required|integer',
+
+            'status' => 'required',
 
         ]);
 
@@ -67,15 +89,15 @@ class PenghuniController extends Controller
 
         $user = User::create([
 
-            'name'      => $request->nama,
+            'name' => $request->nama,
 
-            'email'     => $request->email,
+            'email' => $request->email,
 
-            'password'  => Hash::make($request->password),
+            'password' => Hash::make($request->password),
 
-            'role'      => 'penghuni',
+            'role' => 'penghuni',
 
-            'status'    => 'approved',
+            'status' => 'approved',
 
         ]);
 
@@ -85,25 +107,27 @@ class PenghuniController extends Controller
 
         $penghuni = Penghuni::create([
 
-            'user_id'          => $user->id,
+            'user_id' => $user->id,
 
-            'kamar_id'         => $request->kamar_id,
+            'kamar_id' => $request->kamar_id,
 
-            'nama'             => $request->nama,
+            'nama' => $request->nama,
 
-            'email'            => $request->email,
+            'email' => $request->email,
 
-            'password'         => Hash::make($request->password),
+            'password' => Hash::make($request->password),
 
-            'nik'              => $request->nik,
+            'nik' => $request->nik,
 
-            'alamat'           => $request->alamat,
+            'alamat' => $request->alamat,
 
-            'no_hp'            => $request->no_hp,
+            'no_hp' => $request->no_hp,
 
-            'tanggal_masuk'    => $request->tanggal_masuk,
+            'tanggal_masuk' => $request->tanggal_masuk,
 
-            'status'           => $request->status,
+            'masa_kos' => $request->masa_kos,
+
+            'status' => $request->status,
 
         ]);
 
@@ -114,30 +138,46 @@ class PenghuniController extends Controller
         $kamar = Kamar::find($request->kamar_id);
 
         $kamar->update([
+
             'status' => 'terisi'
+
         ]);
 
         // =========================
-        // GENERATE TAGIHAN AWAL
+        // GENERATE TAGIHAN
         // =========================
 
-        Pembayaran::create([
+        $tanggalMasuk = Carbon::parse(
+            $request->tanggal_masuk
+        );
 
-            'penghuni_id'      => $penghuni->id,
+        for ($i = 0; $i < $request->masa_kos; $i++) {
 
-            'bulan'            => now()->translatedFormat('F'),
+            $tanggal = $tanggalMasuk
+                            ->copy()
+                            ->addMonths($i);
 
-            'tahun'            => now()->year,
+            Tagihan::create([
 
-            'jumlah_tagihan'   => $kamar->harga,
+                'penghuni_id' => $penghuni->id,
 
-            'status'           => 'belum_bayar',
+                'bulan' => $tanggal->translatedFormat('F'),
 
-        ]);
+                'tahun' => $tanggal->year,
+
+                'nominal' => $kamar->harga,
+
+                'status' => 'belum_bayar',
+
+            ]);
+        }
 
         return redirect()
                 ->route('admin.penghuni.index')
-                ->with('success', 'Penghuni berhasil ditambahkan');
+                ->with(
+                    'success',
+                    'Penghuni berhasil ditambahkan'
+                );
     }
 
     // =========================
@@ -147,12 +187,21 @@ class PenghuniController extends Controller
     public function show($id)
     {
         $penghuni = Penghuni::with([
+
             'user',
-            'kamar',
-            'pembayarans'
+
+            'kamar.informasiKos',
+
+            'pembayarans.details.tagihan',
+
+            'tagihans'
+
         ])->findOrFail($id);
 
-        return view('admin.penghuni.show', compact('penghuni'));
+        return view(
+            'admin.penghuni.show',
+            compact('penghuni')
+        );
     }
 
     // =========================
@@ -163,14 +212,23 @@ class PenghuniController extends Controller
     {
         $penghuni = Penghuni::findOrFail($id);
 
-        $kamars = Kamar::where('status', 'kosong')
-                        ->orWhere('id', $penghuni->kamar_id)
-                        ->get();
+        $kamars = Kamar::where(
+                'status',
+                'kosong'
+            )
+            ->orWhere(
+                'id',
+                $penghuni->kamar_id
+            )
+            ->get();
 
-        return view('admin.penghuni.edit', compact(
-            'penghuni',
-            'kamars'
-        ));
+        return view(
+            'admin.penghuni.edit',
+            compact(
+                'penghuni',
+                'kamars'
+            )
+        );
     }
 
     // =========================
@@ -193,7 +251,9 @@ class PenghuniController extends Controller
 
             'kamar_id' => 'required',
 
-            'tanggal_masuk' => 'nullable|date',
+            'tanggal_masuk' => 'required|date',
+
+            'masa_kos' => 'required|integer',
 
             'status' => 'required',
 
@@ -202,19 +262,23 @@ class PenghuniController extends Controller
         // kamar lama
         $kamarLama = Kamar::find($penghuni->kamar_id);
 
-        // kalau kamar berubah
+        // jika kamar berubah
         if ($penghuni->kamar_id != $request->kamar_id) {
 
             // kosongkan kamar lama
             $kamarLama->update([
+
                 'status' => 'kosong'
+
             ]);
 
             // isi kamar baru
             $kamarBaru = Kamar::find($request->kamar_id);
 
             $kamarBaru->update([
+
                 'status' => 'terisi'
+
             ]);
         }
 
@@ -232,13 +296,18 @@ class PenghuniController extends Controller
 
             'tanggal_masuk' => $request->tanggal_masuk,
 
+            'masa_kos' => $request->masa_kos,
+
             'status' => $request->status,
 
         ]);
 
         return redirect()
                 ->route('admin.penghuni.index')
-                ->with('success', 'Data penghuni berhasil diperbarui');
+                ->with(
+                    'success',
+                    'Data penghuni berhasil diperbarui'
+                );
     }
 
     // =========================
@@ -253,18 +322,25 @@ class PenghuniController extends Controller
         $kamar = Kamar::find($penghuni->kamar_id);
 
         $kamar->update([
+
             'status' => 'kosong'
+
         ]);
 
         // hapus user login
-        User::find($penghuni->user_id)?->delete();
+        User::find(
+            $penghuni->user_id
+        )?->delete();
 
         // hapus penghuni
         $penghuni->delete();
 
         return redirect()
                 ->route('admin.penghuni.index')
-                ->with('success', 'Penghuni berhasil dihapus');
+                ->with(
+                    'success',
+                    'Penghuni berhasil dihapus'
+                );
     }
 
     // =========================
@@ -273,8 +349,12 @@ class PenghuniController extends Controller
 
     public function konfirmasiPembayaran($id)
     {
-        $pembayaran = Pembayaran::findOrFail($id);
+        $pembayaran = Pembayaran::with(
+                            'details.tagihan'
+                        )
+                        ->findOrFail($id);
 
+        // update pembayaran
         $pembayaran->update([
 
             'status' => 'lunas',
@@ -283,7 +363,20 @@ class PenghuniController extends Controller
 
         ]);
 
+        // update semua tagihan terkait
+        foreach ($pembayaran->details as $detail) {
+
+            $detail->tagihan->update([
+
+                'status' => 'lunas'
+
+            ]);
+        }
+
         return back()
-                ->with('success', 'Pembayaran berhasil dikonfirmasi');
+                ->with(
+                    'success',
+                    'Pembayaran berhasil dikonfirmasi'
+                );
     }
 }

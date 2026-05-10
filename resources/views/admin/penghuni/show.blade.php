@@ -101,12 +101,23 @@
             </span>
         </div>
 
+        <div>
+
+    <p class="text-gray-500 text-sm">
+        Masa Kos
+    </p>
+    <h2 class="font-semibold text-lg text-[#0F0937] mt-1">
+        {{ $penghuni->masa_kos }} Bulan
+    </h2>
+</div>
+
         <div class="flex col-span-2">
             <span class="w-40 text-gray-500">Alamat</span>
             <span class="font-semibold text-[#0F0937]">
                 : {{ $penghuni->alamat }}
             </span>
         </div>
+        
 
     </div>
 
@@ -140,15 +151,11 @@
                     </th>
 
                     <th class="text-left px-4 py-4 text-sm font-semibold text-gray-600">
-                        Tagihan
+                        Nominal
                     </th>
 
                     <th class="text-left px-4 py-4 text-sm font-semibold text-gray-600">
                         Status
-                    </th>
-
-                    <th class="text-left px-4 py-4 text-sm font-semibold text-gray-600">
-                        Tanggal Bayar
                     </th>
 
                 </tr>
@@ -157,29 +164,40 @@
 
             <tbody>
 
-                @forelse($penghuni->pembayarans as $bayar)
+                @forelse($penghuni->tagihans as $tagihan)
+
+                    @php
+
+                        $detail = \App\Models\DetailPembayaran::where(
+                            'tagihan_id',
+                            $tagihan->id
+                        )->first();
+
+                        $pembayaran = $detail?->pembayaran;
+
+                    @endphp
 
                     <tr class="border-b border-gray-100">
 
-                        {{-- Bulan --}}
+                        {{-- BULAN --}}
                         <td class="px-4 py-4 text-gray-700">
 
-                            {{ $bayar->bulan }}
-                            {{ $bayar->tahun }}
+                            {{ $tagihan->bulan }}
+                            {{ $tagihan->tahun }}
 
                         </td>
 
-                        {{-- Tagihan --}}
+                        {{-- NOMINAL --}}
                         <td class="px-4 py-4 font-semibold text-[#0F0937]">
 
-                            Rp {{ number_format($bayar->jumlah_tagihan, 0, ',', '.') }}
+                            Rp {{ number_format($tagihan->nominal, 0, ',', '.') }}
 
                         </td>
 
-                        {{-- Status --}}
+                        {{-- STATUS --}}
                         <td class="px-4 py-4">
 
-                            @if($bayar->status == 'lunas')
+                            @if($tagihan->status == 'lunas')
 
                                 <span class="bg-green-100 text-green-700
                                              px-3 py-1 rounded-full text-xs font-medium">
@@ -188,29 +206,23 @@
 
                                 </span>
 
+                            @elseif($tagihan->status == 'menunggu_verifikasi')
+
+                                <span class="bg-yellow-100 text-yellow-700
+                                             px-3 py-1 rounded-full text-xs font-medium">
+
+                                    Menunggu Verifikasi
+
+                                </span>
+
                             @else
 
                                 <span class="bg-red-100 text-red-700
                                              px-3 py-1 rounded-full text-xs font-medium">
 
-                                    Belum Lunas
+                                    Belum Bayar
 
                                 </span>
-
-                            @endif
-
-                        </td>
-
-                        {{-- Tanggal Bayar --}}
-                        <td class="px-4 py-4 text-gray-600">
-
-                            @if($bayar->tanggal_bayar)
-
-                                {{ \Carbon\Carbon::parse($bayar->tanggal_bayar)->format('d M Y') }}
-
-                            @else
-
-                                Belum Dibayar
 
                             @endif
 
@@ -239,5 +251,6 @@
 
     </div>
 
+</div>
 </div>
 </x-admin-layout>

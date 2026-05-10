@@ -1,4 +1,5 @@
 <x-admin-layout>
+
 {{-- Header --}}
 <div class="mb-6">
 
@@ -7,13 +8,13 @@
     </h1>
 
     <p class="text-gray-500 mt-1">
-        Kelola pembayaran dan verifikasi penghuni
+        Kelola tagihan dan pembayaran penghuni
     </p>
 
 </div>
 
 {{-- Statistik --}}
-<div class="grid grid-cols-3 gap-6 mb-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
 
     {{-- Sudah Lunas --}}
     <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
@@ -86,19 +87,11 @@
                     </th>
 
                     <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">
-                        Bulan
+                        Belum Bayar
                     </th>
 
                     <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">
-                        Tagihan
-                    </th>
-
-                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">
-                        Status
-                    </th>
-
-                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">
-                        Tanggal Bayar
+                        Menunggu Verifikasi
                     </th>
 
                     <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">
@@ -111,104 +104,65 @@
 
             <tbody>
 
-                @forelse($pembayarans as $item)
+                @forelse($penghunis as $item)
 
                     <tr class="border-b border-gray-100">
 
-                        {{-- No --}}
+                        {{-- NO --}}
                         <td class="px-6 py-4">
+
                             {{ $loop->iteration }}
+
                         </td>
 
-                        {{-- Penghuni --}}
+                        {{-- PENGHUNI --}}
                         <td class="px-6 py-4 font-semibold text-[#0F0937]">
 
-                            {{ $item->penghuni->nama }}
+                            {{ $item->nama }}
 
                         </td>
 
-                        {{-- Kamar --}}
+                        {{-- KAMAR --}}
                         <td class="px-6 py-4">
 
                             Kamar
-                            {{ $item->penghuni->kamar->nomor_kamar }}
+                            {{ $item->kamar->nomor_kamar }}
 
                         </td>
 
-                        {{-- Bulan --}}
+                        {{-- BELUM BAYAR --}}
                         <td class="px-6 py-4">
 
-                            {{ $item->bulan }}
-                            {{ $item->tahun }}
+                            <span class="bg-red-100 text-red-700
+                                         px-3 py-1 rounded-full text-xs font-medium">
+
+                                {{ $item->tagihans
+                                    ->where('status', 'belum_bayar')
+                                    ->count() }}
+
+                                Tagihan
+
+                            </span>
 
                         </td>
 
-                        {{-- Tagihan --}}
-                        <td class="px-6 py-4 font-semibold">
-
-                            Rp {{ number_format($item->jumlah_tagihan, 0, ',', '.') }}
-
-                        </td>
-
-                        {{-- Status --}}
+                        {{-- MENUNGGU --}}
                         <td class="px-6 py-4">
 
-                            @if($item->status == 'lunas')
+                            <span class="bg-yellow-100 text-yellow-700
+                                         px-3 py-1 rounded-full text-xs font-medium">
 
-                                <span class="bg-green-100 text-green-700
-                                             px-3 py-1 rounded-full text-xs font-medium">
+                                {{ $item->tagihans
+                                    ->where('status', 'menunggu_verifikasi')
+                                    ->count() }}
 
-                                    Lunas
+                                Tagihan
 
-                                </span>
-
-                            @elseif($item->status == 'menunggu_verifikasi')
-
-                                <span class="bg-yellow-100 text-yellow-700
-                                             px-3 py-1 rounded-full text-xs font-medium">
-
-                                    Menunggu
-
-                                </span>
-
-                            @elseif($item->status == 'ditolak')
-
-                                <span class="bg-gray-200 text-gray-700
-                                             px-3 py-1 rounded-full text-xs font-medium">
-
-                                    Ditolak
-
-                                </span>
-
-                            @else
-
-                                <span class="bg-red-100 text-red-700
-                                             px-3 py-1 rounded-full text-xs font-medium">
-
-                                    Belum Bayar
-
-                                </span>
-
-                            @endif
+                            </span>
 
                         </td>
 
-                        {{-- Tanggal Bayar --}}
-                        <td class="px-6 py-4 text-gray-600">
-
-                            @if($item->tanggal_bayar)
-
-                                {{ \Carbon\Carbon::parse($item->tanggal_bayar)->format('d M Y') }}
-
-                            @else
-
-                                -
-
-                            @endif
-
-                        </td>
-
-                        {{-- Aksi --}}
+                        {{-- AKSI --}}
                         <td class="px-6 py-4">
 
                             <a href="{{ route('admin.pembayaran.show', $item->id) }}"
@@ -228,7 +182,7 @@
 
                     <tr>
 
-                        <td colspan="8"
+                        <td colspan="6"
                             class="text-center py-10 text-gray-400">
 
                             Belum ada data pembayaran
@@ -246,4 +200,5 @@
     </div>
 
 </div>
+
 </x-admin-layout>

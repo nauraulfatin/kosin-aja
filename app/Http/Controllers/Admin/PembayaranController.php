@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
+use App\Models\Tagihan;
 use App\Models\Pembayaran;
+use App\Models\Penghuni;
 
 use Illuminate\Http\Request;
 
@@ -13,97 +16,132 @@ class PembayaranController extends Controller
     // INDEX
     // =========================
 
-    public function index()
-    {
-        $pembayarans = Pembayaran::with([
-                'penghuni.kamar'
-            ])
-            ->latest()
-            ->get();
+   public function index()
+{
+    $penghunis = Penghuni::with([
+            'kamar',
+            'tagihans'
+        ])
+        ->get();
 
-        // =========================
-        // STATISTIK
-        // =========================
+    // statistik
+    $sudahLunas = Tagihan::where(
+        'status',
+        'lunas'
+    )->count();
 
-        $sudahLunas = Pembayaran::where(
-            'status',
-            'lunas'
-        )->count();
+    $belumBayar = Tagihan::where(
+        'status',
+        'belum_bayar'
+    )->count();
 
-        $belumBayar = Pembayaran::where(
-            'status',
-            'belum_bayar'
-        )->count();
+    $menungguVerifikasi = Tagihan::where(
+        'status',
+        'menunggu_verifikasi'
+    )->count();
 
-        $menungguVerifikasi = Pembayaran::where(
-            'status',
-            'menunggu_verifikasi'
-        )->count();
-
-        return view('admin.pembayaran.index', compact(
-            'pembayarans',
+    return view(
+        'admin.pembayaran.index',
+        compact(
+            'penghunis',
             'sudahLunas',
             'belumBayar',
             'menungguVerifikasi'
-        ));
-    }
+        )
+    );
+}
 
     // =========================
     // DETAIL
     // =========================
+public function show($id)
+{
+    $penghuni = Penghuni::with([
+    'kamar',
+    'pembayarans.details.tagihan'
+])->findOrFail($id);
 
-    public function show($id)
-    {
-        $pembayaran = Pembayaran::with([
-                'penghuni.kamar'
-            ])
-            ->findOrFail($id);
-
-        return view(
-            'admin.pembayaran.show',
-            compact('pembayaran')
-        );
-    }
+    return view(
+        'admin.pembayaran.show',
+        compact('penghuni')
+    );
+}
 
     // =========================
     // VERIFIKASI
     // =========================
 
     public function verifikasi($id)
-    {
-        $pembayaran = Pembayaran::findOrFail($id);
+{
+    $pembayaran = Pembayaran::with(
+        'details.tagihan'
+    )->findOrFail($id);
 
-        $pembayaran->update([
+    // update pembayaran
+    $pembayaran->update([
 
-            'status' => 'lunas',
+        'status' => 'lunas',
 
-            'tanggal_bayar' => now(),
+        'tanggal_bayar' => now(),
 
-        ]);
+    ]);
 
-        return back()->with(
-            'success',
-            'Pembayaran berhasil diverifikasi'
-        );
+    // update semua tagihan terkait
+    foreach ($pembayaran->details as $detail) {
+
+        if ($detail->tagihan) {
+
+            $detail->tagihan->update([
+
+                'status' => 'lunas'
+
+            ]);
+        }
     }
+
+    return redirect()
+            ->back()
+            ->with(
+                'success',
+                'Pembayaran berhasil diverifikasi'
+            );
+}
 
     // =========================
     // TOLAK
     // =========================
 
     public function tolak($id)
-    {
-        $pembayaran = Pembayaran::findOrFail($id);
+{
+    $pembayaran = Pembayaran::with(
+        'details.tagihan'
+    )->findOrFail($id);
 
-        $pembayaran->update([
+    // update pembayaran
+    $pembayaran->update([
 
-            'status' => 'ditolak',
+        'status' => 'ditolak',
 
-        ]);
+    ]);
 
-        return back()->with(
-            'success',
-            'Pembayaran ditolak'
-        );
+    // kembalikan status tagihan
+    foreach ($pembayaran->details as $detail) {
+
+        if ($detail->tagihan) {
+
+            $detail->tagihan->update([
+
+                'status' => 'belum_bayar'
+
+            ]);
+        }
     }
+
+    return redirect()
+            ->back()
+            ->with(
+                'success',
+                'Pembayaran berhasil ditolak'
+            );
+}
 }

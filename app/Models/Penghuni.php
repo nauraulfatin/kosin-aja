@@ -14,12 +14,13 @@ class Penghuni extends Model
         'nama',
         'email',
         'password',
-
+        
         'nik',
         'alamat',
         'no_hp',
 
         'tanggal_masuk',
+        'masa_kos',
         'status',
     ];
 
@@ -40,4 +41,9 @@ class Penghuni extends Model
     {
         return $this->hasMany(Pembayaran::class);
     }
+
+    public function tagihans()
+{
+    return $this->hasMany(Tagihan::class);
+}
 }

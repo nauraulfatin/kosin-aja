@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\InformasiKosController;
 use App\Http\Controllers\Admin\KamarController;
 use App\Http\Controllers\Admin\PenghuniController;
 use App\Http\Controllers\Admin\PembayaranController;
+use App\Http\Controllers\Penghuni\DashboardPenghuniController;
+use App\Http\Controllers\Penghuni\PembayaranPenghuniController;
+use App\Http\Controllers\Penghuni\ProfilePenghuniController;
 
 /*
 |--------------------------------------------------------------------------
@@ -206,6 +209,61 @@ Route::middleware(['auth'])
         )->name('admin.hapus');
 
 });
+
+Route::middleware(['auth'])
+    ->prefix('penghuni')
+    ->name('penghuni.')
+    ->group(function () {
+
+        // =========================
+        // DASHBOARD
+        // =========================
+
+        Route::get(
+            '/dashboard',
+            [DashboardPenghuniController::class, 'index']
+        )->name('dashboard');
+
+        // =========================
+        // PEMBAYARAN
+        // =========================
+
+        Route::get(
+            '/pembayaran',
+            [PembayaranPenghuniController::class, 'index']
+        )->name('pembayaran.index');
+
+        Route::get(
+            '/pembayaran/create',
+            [PembayaranPenghuniController::class, 'create']
+        )->name('pembayaran.create');
+
+        Route::post(
+            '/pembayaran/store',
+            [PembayaranPenghuniController::class, 'store']
+        )->name('pembayaran.store');
+
+        // =========================
+// PROFIL
+// =========================
+
+Route::get(
+    '/profil',
+    [ProfilePenghuniController::class, 'index']
+)->name('profil.index');
+
+Route::put(
+    '/profil/update',
+    [ProfilePenghuniController::class, 'update']
+)->name('profil.update');
+
+Route::get(
+    '/profil/edit',
+    [ProfilePenghuniController::class, 'edit']
+)->name('profil.edit');
+
+});
+
 
 /*
 |--------------------------------------------------------------------------

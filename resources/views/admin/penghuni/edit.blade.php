@@ -1,6 +1,5 @@
 <x-admin-layout>
 
-```
 {{-- Header --}}
 <div class="flex items-center justify-between mb-6">
 
@@ -11,7 +10,7 @@
         </h1>
 
         <p class="text-gray-500 mt-1">
-            Perbarui data penghuni
+            Perbarui data penghuni kos
         </p>
 
     </div>
@@ -26,6 +25,26 @@
 
 </div>
 
+{{-- Error --}}
+@if ($errors->any())
+
+    <div class="bg-red-100 border border-red-200
+                text-red-700 px-5 py-4 rounded-2xl mb-6">
+
+        <ul class="list-disc ml-5 space-y-1">
+
+            @foreach ($errors->all() as $error)
+
+                <li>{{ $error }}</li>
+
+            @endforeach
+
+        </ul>
+
+    </div>
+
+@endif
+
 {{-- Card --}}
 <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
 
@@ -35,7 +54,7 @@
         @csrf
         @method('PUT')
 
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
             {{-- Nama --}}
             <div>
@@ -173,6 +192,57 @@
 
             </div>
 
+            {{-- Masa Kos --}}
+            <div>
+
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Masa Kos
+                </label>
+
+                <select name="masa_kos"
+                        class="w-full border border-gray-300 rounded-xl p-3
+                               focus:ring-[#6C8B6B]
+                               focus:border-[#6C8B6B]">
+
+                    <option value="1"
+                        {{ $penghuni->masa_kos == 1 ? 'selected' : '' }}>
+
+                        1 Bulan
+
+                    </option>
+
+                    <option value="3"
+                        {{ $penghuni->masa_kos == 3 ? 'selected' : '' }}>
+
+                        3 Bulan
+
+                    </option>
+
+                    <option value="6"
+                        {{ $penghuni->masa_kos == 6 ? 'selected' : '' }}>
+
+                        6 Bulan
+
+                    </option>
+
+                    <option value="12"
+                        {{ $penghuni->masa_kos == 12 ? 'selected' : '' }}>
+
+                        12 Bulan
+
+                    </option>
+
+                    <option value="24"
+                        {{ $penghuni->masa_kos == 24 ? 'selected' : '' }}>
+
+                        24 Bulan
+
+                    </option>
+
+                </select>
+
+            </div>
+
         </div>
 
         {{-- Alamat --}}
@@ -208,6 +278,5 @@
     </form>
 
 </div>
-```
 
 </x-admin-layout>

@@ -27,7 +27,15 @@ class InformasiKos extends Model
     }
 
     public function kamars()
-    {
-        return $this->hasMany(Kamar::class, 'user_id', 'user_id');
-    }
+{
+    return $this->hasMany(Kamar::class);
+}
+
+public function create()
+{
+    $informasiKos = InformasiKos::all();
+
+    return view('admin.kamar.create', compact('informasiKos'));
+}
+
 }

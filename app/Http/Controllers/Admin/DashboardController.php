@@ -27,16 +27,19 @@ class DashboardController extends Controller
         $totalPenghuni = Penghuni::where('status', 'aktif')
                          ->count();
 
-        $riwayatTerakhir = Penghuni::latest()
-                           ->take(3)
-                           ->get();
+        $pembayaranTerbaru = \App\Models\Pembayaran::with([
+        'penghuni.kamar'
+    ])
+    ->latest()
+    ->take(5)
+    ->get();
 
         return view('admin.dashboard', compact(
             'totalKamar',
             'kamarKosong',
             'kamarTerisi',
             'totalPenghuni',
-            'riwayatTerakhir'
+            'pembayaranTerbaru'
         ));
     }
 }

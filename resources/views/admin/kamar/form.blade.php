@@ -296,6 +296,7 @@
     </div>
 </div>
 
+
 {{-- Deskripsi Kamar --}}
 <div>
     <label class="block text-sm font-medium text-gray-600 mb-1.5">Deskripsi Kamar</label>

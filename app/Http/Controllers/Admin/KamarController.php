@@ -58,15 +58,21 @@ class KamarController extends Controller
             }
         }
 
-        Kamar::create([
+       $informasiKos = \App\Models\InformasiKos::where('user_id', auth()->id())->first();
+
+Kamar::create([
     'user_id'           => auth()->id(),
+    'informasi_kos_id'  => $informasiKos->id,
+
     'nomor_kamar'       => $request->nomor_kamar,
     'tipe_kamar'        => $request->tipe_kamar,
     'kapasitas'         => $request->kapasitas ?? 1,
     'lantai'            => $request->lantai,
     'ukuran'            => $request->ukuran,
     'harga'             => $request->harga,
+
     'status'            => 'kosong',
+
     'foto_kamar'        => $fotoKamar,
     'fasilitas'         => $request->fasilitas ?? [],
     'keterangan'        => $request->keterangan,
@@ -116,6 +122,7 @@ class KamarController extends Controller
             }
         }
 
+        $informasiKos = \App\Models\InformasiKos::where('user_id', auth()->id())->first();
         $kamar->update([
             'nomor_kamar' => $request->nomor_kamar,
              'tipe_kamar'        => $request->tipe_kamar,
@@ -123,6 +130,7 @@ class KamarController extends Controller
     'lantai'            => $request->lantai,
     'ukuran'            => $request->ukuran,
     'harga'             => $request->harga,
+    'informasi_kos_id' => $informasiKos->id,
     'status'            => 'kosong',
     'foto_kamar'        => $fotoKamar,
     'fasilitas'         => $request->fasilitas ?? [],

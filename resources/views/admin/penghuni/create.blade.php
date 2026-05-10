@@ -254,6 +254,33 @@
 
             </div>
 
+            <div>
+
+    <label class="block mb-2 font-medium">
+        Masa Kos
+    </label>
+
+    <select name="masa_kos"
+            class="w-full border rounded-xl px-4 py-3">
+
+        <option value="1">1 Bulan</option>
+
+        <option value="3">3 Bulan</option>
+
+        <option value="6">6 Bulan</option>
+
+        <option value="12" selected>
+            12 Bulan
+        </option>
+
+        <option value="24">
+            24 Bulan
+        </option>
+
+    </select>
+
+</div>
+
             {{-- Status --}}
             <div>
 

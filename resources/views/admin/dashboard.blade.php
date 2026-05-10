@@ -36,31 +36,108 @@
     {{-- Baris Bawah --}}
     <div class="grid grid-cols-2 gap-6">
 
-        {{-- Riwayat Terakhir --}}
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <h3 class="text-lg font-bold text-[#0F0937] mb-4">Riwayat Terakhir</h3>
-            @forelse($riwayatTerakhir as $penghuni)
-            <div class="flex items-center justify-between py-3 border-b border-gray-100 last:border-0">
-                <div>
-                    <p class="font-semibold text-sm text-[#0F0937]">{{ $penghuni->nama }}</p>
-                    <p class="text-xs text-gray-400">{{ $penghuni->created_at->format('F Y') }}</p>
-                </div>
-                <div class="text-right">
-                    <p class="text-sm font-semibold text-[#0F0937]">Rp {{ number_format($penghuni->kamar->harga ?? 0, 0, ',', '.') }}</p>
-                    <span style="display:inline-block;background:#fef9c3;color:#ca8a04;font-size:11px;font-weight:600;padding:2px 10px;border-radius:6px;">
-                        Aktif
+        {{-- Pembayaran Terbaru --}}
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+
+    <h3 class="text-lg font-bold text-[#0F0937] mb-4">
+        Pembayaran Terbaru
+    </h3>
+
+    @forelse($pembayaranTerbaru as $item)
+
+        <div class="flex items-center justify-between
+                    py-3 border-b border-gray-100 last:border-0">
+
+            <div>
+
+                {{-- NAMA --}}
+                <p class="font-semibold text-sm text-[#0F0937]">
+
+                    {{ $item->penghuni->nama }}
+
+                </p>
+
+                {{-- BULAN --}}
+                <p class="text-xs text-gray-400">
+
+                    {{ $item->created_at->format('d M Y') }}
+
+                </p>
+
+            </div>
+
+            <div class="text-right">
+
+                {{-- TOTAL --}}
+                <p class="text-sm font-semibold text-[#0F0937]">
+
+                    Rp {{ number_format($item->total_bayar, 0, ',', '.') }}
+
+                </p>
+
+                {{-- STATUS --}}
+                @if($item->status == 'lunas')
+
+                    <span class="inline-block bg-green-100
+                                 text-green-700 text-[11px]
+                                 font-semibold px-3 py-1 rounded-lg">
+
+                        Lunas
+
                     </span>
-                </div>
+
+                @elseif($item->status == 'menunggu_verifikasi')
+
+                    <span class="inline-block bg-yellow-100
+                                 text-yellow-700 text-[11px]
+                                 font-semibold px-3 py-1 rounded-lg">
+
+                        Menunggu
+
+                    </span>
+
+                @else
+
+                    <span class="inline-block bg-red-100
+                                 text-red-700 text-[11px]
+                                 font-semibold px-3 py-1 rounded-lg">
+
+                        Ditolak
+
+                    </span>
+
+                @endif
+
             </div>
-            @empty
-            <p class="text-sm text-gray-400 text-center py-4">Belum ada penghuni</p>
-            @endforelse
-            @if($riwayatTerakhir->count() > 0)
-            <div class="text-center mt-4">
-                <a href="{{ route('admin.penghuni.index') }}" class="text-sm text-[#6C8B6B] hover:underline">Lihat Semua</a>
-            </div>
-            @endif
+
         </div>
+
+    @empty
+
+        <p class="text-sm text-gray-400 text-center py-4">
+
+            Belum ada pembayaran
+
+        </p>
+
+    @endforelse
+
+    @if($pembayaranTerbaru->count() > 0)
+
+        <div class="text-center mt-4">
+
+            <a href="{{ route('admin.pembayaran.index') }}"
+               class="text-sm text-[#6C8B6B] hover:underline">
+
+                Lihat Semua
+
+            </a>
+
+        </div>
+
+    @endif
+
+</div>
 
         {{-- Aduan Terbaru --}}
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">

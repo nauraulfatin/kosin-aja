@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('kamars', function (Blueprint $table) {
+
+            $table->foreignId('informasi_kos_id')
+                  ->nullable()
+                  ->after('id')
+                  ->constrained('informasi_kos')
+                  ->onDelete('cascade');
+
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('kamars', function (Blueprint $table) {
+
+            $table->dropForeign(['informasi_kos_id']);
+            $table->dropColumn('informasi_kos_id');
+
+        });
+    }
+};

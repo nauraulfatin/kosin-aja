@@ -22,28 +22,43 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-   public function store(LoginRequest $request): RedirectResponse
+public function store(LoginRequest $request): RedirectResponse
 {
     $request->authenticate();
+
     $request->session()->regenerate();
 
     $user = auth()->user();
 
+    // CEK STATUS ADMIN
     if ($user->role == 'admin' && $user->status != 'approved') {
+
         auth()->logout();
+
         return back()->withErrors([
             'email' => 'Akun Anda masih menunggu persetujuan dari Super Admin.'
         ]);
     }
 
+    // SUPER ADMIN
     if ($user->role == 'super_admin') {
+
         return redirect()->route('superadmin.dashboard');
     }
 
+    // ADMIN
     if ($user->role == 'admin') {
+
         return redirect()->route('admin.dashboard');
     }
 
+    // PENGHUNI
+    if ($user->role == 'penghuni') {
+
+        return redirect()->route('penghuni.dashboard');
+    }
+
+    // DEFAULT
     return redirect('/');
 }
     /**
