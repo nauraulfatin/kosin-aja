@@ -5,61 +5,55 @@
 @section('styles')
 <style>
 :root {
-    --badge-premium: #7CA385;
-    --badge-favorit: #f5a623;
-    --star: #f5a623
+    --green-dark: #1F3A2C;
+    --green-mid: #284535;
+    --green-cta: #5F8568;
+    --green-light: #7CA385;
+    --cream: #F5F4F0;
+    --cream-2: #EEF4EF;
+    --border-soft: #E2EAE3;
+    --text-dark: #1F3A2C;
+    --text-mid: #4A5E4C;
+    --text-muted: #7A8A7C;
 }
 
-.container{
-    width:90%;
-    max-width:1350px;
-    margin:0 auto;
+/* ─── GLOBAL ─────────────────────────────────── */
+* {
+    box-sizing: border-box;
 }
 
-/* HERO */
-/* HERO */
+.container {
+    width: 90%;
+    max-width: 1320px;
+    margin: 0 auto;
+}
+
+/* ─── HERO ────────────────────────────────────── */
 .hero {
     padding: 15px 0 20px;
     position: relative;
     overflow: hidden;
 }
 
-/* WRAPPER HERO */
-.hero-wrap{
-    display:grid;
-    grid-template-columns: 1fr 1.1fr;
-    align-items:center;
-    gap:80px;
-    min-height:88vh;
+.hero-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.8fr;
+    align-items: center;
+    gap: 80px;
+    min-height: 88vh;
 }
 
-.hero-blur{
-    position:absolute;
-    width:420px;
-    height:420px;
-    background:#DDEADF;
-    border-radius:999px;
-    filter:blur(120px);
-    opacity:.5;
-    left:-120px;
-    top:120px;
-    z-index:-1;
-}
-
-.hero-trust{
-    display:flex;
-    gap:18px;
-    flex-wrap:wrap;
-    margin-top:22px;
-}
-
-.hero-trust span{
-    font-size:.92rem;
-    color:#6B7B6D;
-    background:#F4F7F4;
-    border:1px solid #E4ECE5;
-    padding:10px 16px;
-    border-radius:999px;
+.hero-blur {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    background: #DDEADF;
+    border-radius: 999px;
+    filter: blur(120px);
+    opacity: .5;
+    left: -120px;
+    top: 120px;
+    z-index: -1;
 }
 
 .hero::before {
@@ -69,9 +63,9 @@
     right: -80px;
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(124, 163, 133, 0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(124, 163, 133, .12) 0%, transparent 70%);
     border-radius: 50%;
-    pointer-events: none
+    pointer-events: none;
 }
 
 .hero::after {
@@ -81,28 +75,28 @@
     left: -60px;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(124, 163, 133, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(124, 163, 133, .10) 0%, transparent 70%);
     border-radius: 50%;
-    pointer-events: none
+    pointer-events: none;
 }
 
 .hero-text {
     position: relative;
-    z-index: 2
+    z-index: 2;
 }
 
 .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(124, 163, 133, 0.12);
-    border: 1px solid rgba(124, 163, 133, 0.3);
+    background: rgba(124, 163, 133, .12);
+    border: 1px solid rgba(124, 163, 133, .3);
     border-radius: 20px;
     padding: 8px 16px;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--cta);
-    margin-bottom: 40px
+    color: var(--green-cta);
+    margin-bottom: 40px;
 }
 
 .hero-text h1 {
@@ -111,9 +105,10 @@
     font-size: clamp(2.3rem, 5vw, 4.5rem);
     line-height: 1.1;
     letter-spacing: -2.3px;
-    color: #1F3A2C;
+    color: var(--green-dark);
     margin-bottom: 30px;
 }
+
 .hero-text h1 em {
     font-style: normal;
     color: #729a7b;
@@ -138,9 +133,7 @@
     max-width: 580px;
     width: 100%;
     margin-bottom: 30px;
-    box-shadow:
-        0 10px 35px rgba(124, 163, 133, 0.12),
-        0 2px 10px rgba(0,0,0,0.03);
+    box-shadow: 0 10px 35px rgba(124, 163, 133, .12), 0 2px 10px rgba(0, 0, 0, .03);
 }
 
 .hero-search input {
@@ -150,86 +143,66 @@
     outline: none;
     padding: 0 8px;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
+    font-size: .9rem;
     background: transparent;
-    color: var(--text-dark)
+    color: var(--text-dark);
 }
 
 .hero-search input::placeholder {
-    color: var(--text-light)
+    color: var(--text-muted);
 }
 
 .hero-search button {
     flex-shrink: 0;
     padding: 12px 20px;
     background: linear-gradient(135deg, #7CA385, #5F8568);
-    color: #ffffff !important;
+    color: #fff;
     border: none;
-    outline: none;
     border-radius: 18px;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: .95rem;
     cursor: pointer;
     white-space: nowrap;
     transition: all .25s ease;
-    box-shadow:0 10px 24px rgba(124,163,133,.28);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 220px;
+    box-shadow: 0 10px 24px rgba(124, 163, 133, .28);
+    min-width: 200px;
 }
 
-.hero-search button:hover{
+.hero-search button:hover {
     transform: translateY(-2px);
-    box-shadow:0 14px 28px rgba(124,163,133,.35);
+    box-shadow: 0 14px 28px rgba(124, 163, 133, .35);
     background: linear-gradient(135deg, #6C8B6B, #56725D);
 }
-.hero-search button:active{ transform: scale(.98);}
-.hero-search button:focus{outline:none;}
 
-.hero-stats {
+.hero-trust {
     display: flex;
-    gap: 24px;
-    flex-wrap: wrap
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 22px;
 }
 
-.hero-stat {
+.hero-trust span {
+    font-size: .92rem;
+    color: #6B7B6D;
+    background: #F4F7F4;
+    border: 1px solid #E4ECE5;
+    padding: 10px 16px;
+    border-radius: 999px;
+}
+
+.hero-image {
+    position: relative;
     display: flex;
-    flex-direction: column
-}
-
-.hero-stat strong {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 800;
-    font-size: 1.3rem;
-    color: var(--text-dark)
-}
-
-.hero-stat span {
-    font-size: 0.78rem;
-    color: var(--text-light)
-}
-
-.hero-stat-divider {
-    width: 1px;
-    height: 36px;
-    background: var(--border);
-    align-self: center
-}
-
-.hero-image{
-    position:relative;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    justify-content: center;
+    align-items: center;
 }
 
 .hero-image img {
     max-width: 100%;
-    max-height: 560px;
+    max-height: 800px;
     width: 100%;
     object-fit: contain;
-    animation: float 4s ease-in-out infinite
+    animation: float 4s ease-in-out infinite;
 }
 
 .hero-float-card {
@@ -237,33 +210,22 @@
     background: #fff;
     border-radius: 14px;
     padding: 12px 16px;
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .10);
     display: flex;
     align-items: center;
     gap: 10px;
     z-index: 5;
-    animation: floatCard 3s ease-in-out infinite
+    animation: floatCard 3s ease-in-out infinite;
 }
 
-.hero-float-card.card-1{
-    top:70px;
-    left:-20px;
-}
-.hero-float-card.card-2{
-    bottom:70px;
-    left:-30px;
+.hero-float-card.card-1 {
+    top: 70px;
+    left: -20px;
 }
 
-@keyframes floatCard {
-
-    0%,
-    100% {
-        transform: translateY(0)
-    }
-
-    50% {
-        transform: translateY(-8px)
-    }
+.hero-float-card.card-2 {
+    bottom: 70px;
+    left: -30px;
 }
 
 .float-icon {
@@ -273,25 +235,25 @@
     border-radius: 10px;
     display: flex;
     align-items: center;
-    justify-content: center
+    justify-content: center;
 }
 
 .float-icon svg {
     width: 18px;
     height: 18px;
-    fill: var(--cta)
+    fill: var(--green-cta);
 }
 
 .float-text strong {
     display: block;
-    font-size: 0.88rem;
+    font-size: .88rem;
     font-weight: 700;
-    color: var(--text-dark)
+    color: var(--text-dark);
 }
 
 .float-text span {
-    font-size: 0.75rem;
-    color: var(--text-light)
+    font-size: .75rem;
+    color: var(--text-muted);
 }
 
 @keyframes float {
@@ -306,429 +268,743 @@
     }
 }
 
-/* REKOMENDASI KOS */
+@keyframes floatCard {
 
-.section{
-    padding: 20px 0 70px;
-    background: #F8F7F4;
-    position: relative;
-    overflow: hidden;
-}
-
-/* HEADER */
-.section-header{
-    display:flex;
-    align-items:end;
-    justify-content:space-between;
-    margin-bottom:38px;
-    gap:20px;
-}
-
-.section-header .left h2{
-    font-family:'Plus Jakarta Sans', sans-serif;
-    font-weight:800;
-    font-size:2rem;
-    line-height:1.1; 
-    color: #1F3A2C;
-    margin-bottom:10px;
-}
-
-.section-header .left p{
-    font-size:1.08rem;
-    color: #7A8A7C;
-    line-height:1.7;
-}
-
-/* BUTTON LIHAT SEMUA */
-.btn-lihat-semua{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:14px 20px;
-    border-radius:16px;
-    background: #6C8B6B;
-    color:#fff;
-    text-decoration:none;
-    font-weight:700;
-    font-size:.92rem;
-    transition:.3s ease;
-    box-shadow:
-    0 10px 25px rgba(40,69,53,.15);
-}
-
-.btn-lihat-semua:hover{
-    transform:translateY(-2px);
-    background: #284535;
-    box-shadow:
-    0 18px 35px rgba(40,69,53,.22);
-}
-
-/* GRID */
-.kos-grid{
-    display:flex;
-    flex-wrap:wrap;
-    gap:24px;
-}
-
-/* CARD */
-/* CARD */
-.kos-card{
-    width:340px;
-    flex-shrink:0;
-    background:#284535;
-    border-radius:32px;
-    overflow:hidden;
-    transition:.35s ease;
-    position:relative;
-    border:1px solid rgba(255,255,255,.05);
-    box-shadow:
-        0 10px 30px rgba(26, 47, 36, 0.18),
-        0 25px 60px rgba(26, 47, 36, 0.10);
-}
-
-.kos-card:hover{
-    transform:translateY(-10px);
-    box-shadow:
-        0 18px 40px rgba(26, 47, 36, 0.25),
-        0 35px 80px rgba(26, 47, 36, 0.16);
-}
-
-/* THUMB */
-.kos-thumb{
-    position:relative;
-    height:180px;
-    overflow:hidden;
-}
-
-.kos-thumb img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-
-    transition:transform .5s ease;
-}
-
-.kos-card:hover .kos-thumb img{
-    transform:scale(1.07);
-}
-
-/* BADGE */
-.kos-badge{
-    position:absolute;
-    top:16px;
-    left:16px;
-    padding:7px 14px;
-    border-radius:999px;
-    font-size:.72rem;
-    font-weight:700;
-    color:#fff;
-    backdrop-filter:blur(10px);
-}
-
-.badge-premium{
-    background:#D6A84F;
-}
-
-.badge-favorit{
-    background:#E86D6D;
-}
-
-/* BODY */
-.kos-body{
-    padding:14px;
-}
-
-/* TITLE */
-.kos-name{
-    font-family:'Plus Jakarta Sans', sans-serif;
-    font-size:1.4rem;
-    font-weight:800;
-    color:#fff;
-    margin-bottom:4px;
-}
-
-/* LOCATION */
-.kos-loc{
-    font-size:.92rem;
-    color:#C8D5CB;
-    margin-bottom:4px;
-}
-
-/* PRICE */
-.kos-price{
-    font-family:'Plus Jakarta Sans', sans-serif;
-    font-size:0.9rem;
-    font-weight:800;
-    color:#F8F7F4;
-    margin-bottom:6px;
-}
-
-.kos-price span{
-    font-size:.90rem;
-    font-weight:500;
-    color:#C8D5CB;
-}
-
-/* TAG */
-.kos-tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-bottom:14px;
-}
-
-.kos-tag{
-    padding:7px 12px;
-    border-radius:999px;
-    background:rgba(255,255,255,.12);
-    color: #E7EFE8;
-    font-size:.75rem;
-    font-weight:600;
-}
-
-/* INFO */
-.kos-info{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:14px;
-    color: #C8D5CB;
-    font-size:.82rem;
-}
-
-/* ACTIONS */
-.kos-actions{
-    display:flex;
-    gap:12px;
-}
-
-/* BUTTON DETAIL */
-.btn-detail{
-    flex:1;
-    padding:6px 6px;
-    border-radius:14px;
-    background:#F8F7F4;
-    color:#284535;
-    text-decoration:none;
-    font-weight:700;
-    font-size:.9rem;
-    text-align:center;
-    transition:.25s ease;
-}
-
-.btn-detail:hover{
-    background:#ECE7DE;
-    transform:translateY(-2px);
-}
-
-/* BUTTON HUBUNGI */
-.btn-hubungi{
-    flex:1;
-    padding:6px 6px;
-    border-radius:16px;
-    background: #7CA385;
-    color:#fff;
-    text-decoration:none;
-    font-weight:700;
-    font-size:.9rem;
-    text-align:center;
-    transition:.25s ease;
-}
-
-.btn-hubungi:hover{
-    background:#6B8E73;
-
-    transform:translateY(-2px);
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-    .hero-wrap{
-        grid-template-columns:1fr;
-        gap:40px;
+    0%,
+    100% {
+        transform: translateY(0)
     }
-    .hero{
-        padding:30px 0 50px;
-    }
-    .hero-text{
-        text-align:center;
-    }
-    .hero-search{
-        margin-inline:auto;
-    }
-    .hero-trust{
-        justify-content:center;
-    }
-    .hero-image{
-        justify-content:center;
+
+    50% {
+        transform: translateY(-8px)
     }
 }
 
-/* FASILITAS + WHY */
-.two-col {
+
+/* ─── REKOMENDASI KOS ─────────────────────────── */
+.rekom-section {
+    padding: 60px 0 70px;
+    background: var(--cream);
+}
+
+/* section label pill */
+.sec-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--green-cta);
+    background: rgba(95, 133, 104, .10);
+    border: 1px solid rgba(95, 133, 104, .22);
+    padding: 5px 13px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+}
+
+.sec-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 1.1;
+    letter-spacing: -.8px;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+}
+
+.sec-sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.sec-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 36px;
+    gap: 20px;
+}
+
+/* filter tabs */
+.filter-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+}
+
+.tab-btn {
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1.5px solid var(--border-soft);
+    background: #fff;
+    color: var(--text-mid);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+    background: var(--green-mid);
+    border-color: var(--green-mid);
+    color: #fff;
+}
+
+/* ─── KOS CARD (light) ────────────────────────── */
+.kos-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    padding: 0 64px 56px
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
 }
 
-.feature-box {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 36px
+.kos-card {
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border-soft);
+    transition: .3s ease;
+    position: relative;
 }
 
-.feature-box h3 {
-    font-family:'Plus Jakarta Sans', sans-serif;
-    font-weight:800;
-    font-size:2rem;
-    line-height:1.1; 
-    color: #1F3A2C;
-    margin-bottom:10px;
+.kos-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(31, 58, 44, .11);
+    border-color: #C5D5C7;
 }
 
-.feature-box .sub {
-    font-size:1.08rem;
-    color: #7A8A7C;
-    line-height:1.7;
-    margin-bottom: 24px
+.kos-thumb {
+    position: relative;
+    height: 196px;
+    overflow: hidden;
+    background: #D5E0D6;
 }
 
-.facility-grid {
+.kos-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+}
+
+.kos-card:hover .kos-thumb img {
+    transform: scale(1.06);
+}
+
+/* badge tipe kos */
+.kos-badge-wrap {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+}
+
+.kos-badge {
+    padding: 5px 13px;
+    border-radius: 999px;
+    font-size: .68rem;
+    font-weight: 700;
+    color: #fff;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.badge-putra {
+    background: rgba(44, 100, 170, .82);
+}
+
+.badge-putri {
+    background: rgba(190, 65, 120, .82);
+}
+
+.badge-campur {
+    background: rgba(50, 120, 75, .82);
+}
+
+.kos-body {
+    padding: 16px 18px 20px;
+}
+
+.kos-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--green-dark);
+    margin-bottom: 4px;
+}
+
+.kos-loc {
+    font-size: .82rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.kos-divider {
+    height: 1px;
+    background: #EDF2EE;
+    margin-bottom: 12px;
+}
+
+/* harga */
+.kos-price {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.12rem;
+    font-weight: 800;
+    color: var(--green-mid);
+    margin-bottom: 10px;
+}
+
+.kos-price span {
+    font-size: .78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+/* tags */
+.kos-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 16px;
+}
+
+.kos-tag {
+    padding: 4px 11px;
+    border-radius: 999px;
+    background: var(--cream-2);
+    color: #3D6045;
+    font-size: .71rem;
+    font-weight: 600;
+}
+
+/* actions */
+.kos-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-detail {
+    flex: 1;
+    padding: 10px 6px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border-soft);
+    background: #fff;
+    color: var(--green-mid);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .84rem;
+    text-align: center;
+    transition: .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-detail:hover {
+    background: var(--cream);
+    border-color: #B5C8B7;
+}
+
+.btn-hubungi {
+    flex: 1;
+    padding: 10px 6px;
+    border-radius: 12px;
+    background: var(--green-mid);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .84rem;
+    text-align: center;
+    transition: .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.btn-hubungi:hover {
+    background: var(--green-dark);
+}
+
+/* lihat semua */
+.btn-lihat-semua {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 11px 22px;
+    border-radius: 14px;
+    border: 1.5px solid var(--green-mid);
+    color: var(--green-mid);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .88rem;
+    transition: .2s;
+    white-space: nowrap;
+}
+
+.btn-lihat-semua:hover {
+    background: var(--green-mid);
+    color: #fff;
+}
+
+/* empty state */
+.empty-kos {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-kos .empty-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+}
+
+.empty-kos h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+}
+
+.empty-kos p {
+    color: var(--text-muted);
+    font-size: .95rem;
+}
+
+
+/* ─── STATS STRIP ─────────────────────────────── */
+.stats-strip {
+    background: var(--green-mid);
+    padding: 36px 0;
+}
+
+.stats-inner {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    flex: 1;
+    min-width: 150px;
+    max-width: 220px;
+    text-align: center;
+    padding: 10px 24px;
+    position: relative;
+}
+
+.stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 18%;
+    height: 64%;
+    width: 1px;
+    background: rgba(255, 255, 255, .18);
+}
+
+.stat-num {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: .78rem;
+    color: rgba(255, 255, 255, .58);
+}
+
+
+/* ─── FASILITAS ───────────────────────────────── */
+.fac-section {
+    padding: 64px 0;
+    background: #fff;
+}
+
+.fac-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-bottom: 24px
+    gap: 16px;
+    margin-top: 36px;
 }
 
-.facility-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 16px 8px;
-    border-radius: 14px;
-    background: #5F8568;
-    font-size: 1rem;
-    color: #F4F7F4;
-    font-weight: 600;
-    text-align: center;
-    transition: background 0.2s, transform 0.2s;
-    cursor: pointer
-}
-
-.facility-item:hover {
-    background: #56725D;
-    transform: translateY(-2px)
-}
-
-.facility-item .fac-icon {
-    width: 36px;
-    height: 36px;
-    background: var(--cta);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center
-}
-
-.facility-item .fac-icon svg {
-    width: 20px;
-    height: 20px;
-    fill: #1F3A2C
-}
-
-.why-box {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
+.fac-item {
+    background: var(--cream);
+    border: 1px solid var(--border-soft);
     border-radius: 20px;
-    padding: 36px;
+    padding: 24px 14px 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: .25s ease;
+    text-align: center;
+    text-decoration: none;
 }
 
-.why-box h3 {
-    font-family:'Plus Jakarta Sans', sans-serif;
-    font-weight:800;
-    font-size:2rem;
-    line-height:1.1; 
-    color: #1F3A2C;
-    margin-bottom:10px;
+.fac-item:hover {
+    background: var(--green-mid);
+    border-color: var(--green-mid);
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(40, 69, 53, .13);
 }
 
-.why-box .sub {
-    font-size:1.08rem;
-    color: #7A8A7C;
-    line-height:1.7;
-    margin-bottom: 24px
+.fac-item:hover .fac-icon-wrap {
+    background: rgba(255, 255, 255, .15);
 }
 
+.fac-item:hover .fac-name {
+    color: #fff;
+}
+
+.fac-item:hover .fac-count {
+    color: rgba(255, 255, 255, .65);
+}
+
+.fac-icon-wrap {
+    width: 48px;
+    height: 48px;
+    background: var(--cream-2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .25s;
+}
+
+.fac-icon-wrap svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: var(--green-mid);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke .25s;
+}
+
+.fac-item:hover .fac-icon-wrap svg {
+    stroke: #fff;
+}
+
+.fac-name {
+    font-size: .86rem;
+    font-weight: 700;
+    color: var(--green-dark);
+    transition: color .25s;
+}
+
+.fac-count {
+    font-size: .72rem;
+    color: var(--text-muted);
+    transition: color .25s;
+}
+
+
+/* ─── KEUNGGULAN KAMI ────────────────────────── */
+.why-section {
+    padding: 70px 0;
+    background: var(--cream);
+}
+
+.why-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 52px;
+    align-items: start;
+}
+
+/* kiri: daftar keunggulan */
 .why-list {
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    margin-bottom: 24px
+    margin-top: 28px;
 }
 
 .why-item {
     display: flex;
+    gap: 18px;
     align-items: flex-start;
-    gap: 14px
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-soft);
+    transition: .2s;
 }
 
-.why-icon {
+.why-item:last-child {
+    border-bottom: none;
+}
+
+.why-item:hover .why-num {
+    background: var(--green-mid);
+    color: #fff;
+    border-color: var(--green-mid);
+}
+
+.why-num {
     width: 38px;
     height: 38px;
-    background: #5F8568;
-    border-radius: 12px;
+    border-radius: 11px;
+    background: var(--cream-2);
+    border: 1.5px solid #C5D5C7;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: .8rem;
+    color: var(--green-mid);
+    flex-shrink: 0;
+    transition: .2s;
 }
 
-.why-icon svg {
-    width: 18px;
-    height: 18px;
-    fill: #1F3A2C
-}
-
-.why-item-text strong {
+.why-text strong {
     display: block;
-    font-size: 0.98rem;
+    font-size: .95rem;
     font-weight: 700;
-    color: #1F3A2C;
-    margin-bottom: 3px
+    color: var(--green-dark);
+    margin-bottom: 3px;
 }
 
-.why-item-text p {
-    font-size: 0.82rem;
-    color: var(--text-light);
-    line-height: 1.6
+.why-text p {
+    font-size: .82rem;
+    color: var(--text-muted);
+    line-height: 1.65;
 }
 
-.why-house {
+/* kanan: panel testimoni */
+.why-panel {
+    background: var(--green-mid);
+    border-radius: 28px;
+    padding: 38px 34px;
+    position: relative;
+    overflow: hidden;
+}
+
+.why-panel::before,
+.why-panel::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .05);
+    pointer-events: none;
+}
+
+.why-panel::before {
+    width: 240px;
+    height: 240px;
+    top: -80px;
+    right: -70px;
+}
+
+.why-panel::after {
+    width: 160px;
+    height: 160px;
+    bottom: -50px;
+    left: -50px;
+}
+
+.panel-label {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, .5);
+    margin-bottom: 18px;
+}
+
+.testi-card {
+    background: rgba(255, 255, 255, .09);
+    border: 1px solid rgba(255, 255, 255, .13);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 14px;
+}
+
+.testi-stars {
+    color: #F5C842;
+    font-size: .85rem;
+    margin-bottom: 10px;
+}
+
+.testi-text {
+    font-size: .87rem;
+    color: rgba(255, 255, 255, .82);
+    line-height: 1.65;
+    margin-bottom: 14px;
+    font-style: italic;
+}
+
+.testi-author {
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin-top: 8px;
-    opacity: 0.12
+    gap: 10px;
 }
 
-.why-house svg {
-    width: 80px;
-    height: 80px;
-    fill: var(--cta)
+.testi-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: .72rem;
+    color: #fff;
+    flex-shrink: 0;
 }
 
-/* CTA BANNER */
+.testi-name {
+    font-size: .82rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.testi-role {
+    font-size: .72rem;
+    color: rgba(255, 255, 255, .5);
+}
+
+.panel-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 4px;
+    padding: 12px 22px;
+    border-radius: 13px;
+    background: var(--green-light);
+    color: #fff;
+    font-weight: 700;
+    font-size: .88rem;
+    text-decoration: none;
+    transition: .2s;
+    width: 100%;
+}
+
+.panel-cta:hover {
+    background: #6B8E73;
+}
+
+
+/* ─── AREA POPULER ─────────────────────────────── */
+.area-section {
+    padding: 64px 0;
+    background: #fff;
+}
+
+.area-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 36px;
+}
+
+.area-card {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    height: 170px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.area-card:hover {
+    transform: scale(1.03);
+}
+
+.area-card:hover .area-overlay {
+    background: rgba(20, 40, 22, .65);
+}
+
+.area-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.area-bg-1 {
+    background: linear-gradient(140deg, #7CA385 0%, #284535 100%);
+}
+
+.area-bg-2 {
+    background: linear-gradient(140deg, #5F8568 0%, #1F3A2C 100%);
+}
+
+.area-bg-3 {
+    background: linear-gradient(140deg, #4A7558 0%, #2C5040 100%);
+}
+
+.area-bg-4 {
+    background: linear-gradient(140deg, #6B8E73 0%, #1A3028 100%);
+}
+
+.area-bg svg {
+    width: 64px;
+    height: 64px;
+    stroke: rgba(255, 255, 255, .18);
+    fill: none;
+    stroke-width: 1.4;
+}
+
+.area-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 40, 22, .42);
+    transition: .3s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 16px;
+}
+
+.area-hot {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, .16);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, .22);
+    border-radius: 999px;
+    padding: 3px 11px;
+    font-size: .66rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.area-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.area-count {
+    font-size: .74rem;
+    color: rgba(255, 255, 255, .68);
+    margin-top: 2px;
+}
+
+
+/* ─── CTA BANNER ───────────────────────────────── */
 .cta-banner {
-    margin: 0 64px 40px;
+    margin: 0 5% 60px;
     border-radius: 28px;
     overflow: hidden;
     position: relative;
-    min-height: 400px
+    min-height: 400px;
 }
 
 .cta-banner img {
@@ -736,13 +1012,13 @@
     height: 100%;
     object-fit: cover;
     position: absolute;
-    inset: 0
+    inset: 0;
 }
 
 .cta-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(20, 40, 22, 0.82) 0%, rgba(20, 40, 22, 0.55) 100%)
+    background: linear-gradient(135deg, rgba(20, 40, 22, .84) 0%, rgba(20, 40, 22, .55) 100%);
 }
 
 .cta-content {
@@ -754,7 +1030,7 @@
     justify-content: center;
     min-height: 400px;
     text-align: center;
-    padding: 60px 40px
+    padding: 60px 40px;
 }
 
 .cta-content h2 {
@@ -762,92 +1038,90 @@
     font-weight: 800;
     font-size: clamp(1.6rem, 3vw, 2.4rem);
     color: #fff;
-    margin-bottom: 12px
+    margin-bottom: 12px;
 }
 
 .cta-content p {
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.82);
+    color: rgba(255, 255, 255, .82);
     margin-bottom: 28px;
-    max-width: 420px
+    max-width: 420px;
 }
 
 .btn-cta-white {
     padding: 14px 36px;
-    background: #5e8a68;
+    background: var(--green-cta);
     color: #fff;
     border-radius: 12px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
     font-size: 1rem;
     text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s
+    transition: background .2s, transform .2s;
 }
 
 .btn-cta-white:hover {
     background: #56725D;
-    transform: translateY(-2px)
+    transform: translateY(-2px);
 }
 
-@media(max-width:1024px) {
+
+/* ─── RESPONSIVE ───────────────────────────────── */
+@media (max-width: 1024px) {
+    .kos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .fac-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .area-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .why-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-wrap {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
     .hero {
-        padding: 48px 32px
+        padding: 30px 0 50px;
     }
 
-    .section {
-        padding: 40px 32px
+    .hero-text {
+        text-align: center;
     }
 
-    .two-col,
-    .testimonial-section {
-        padding: 0 32px 40px
+    .hero-search {
+        margin-inline: auto;
     }
 
-    .cta-banner {
-        margin: 0 32px 40px
+    .hero-trust {
+        justify-content: center;
     }
 
     .kos-grid {
-        grid-template-columns: repeat(2, 1fr)
-    }
-}
-
-@media(max-width:768px) {
-    .hero {
         grid-template-columns: 1fr;
-        padding: 36px 20px;
-        text-align: center
     }
 
-    .hero-image {
-        justify-content: center
+    .fac-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .section {
-        padding: 32px 20px
-    }
-
-    .two-col {
-        grid-template-columns: 1fr;
-        padding: 0 20px 32px
-    }
-
-    .testi-grid {
-        grid-template-columns: 1fr
-    }
-
-    .kos-grid {
-        grid-template-columns: 1fr
-    }
-
-    .testimonial-section {
-        padding: 0 20px 32px
+    .area-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .cta-banner {
-        margin: 0 20px 32px
+        margin: 0 4% 40px;
     }
 }
 </style>
@@ -855,301 +1129,419 @@
 
 @section('content')
 
-{{-- HERO --}}
+{{-- ══════════════════ HERO ══════════════════ --}}
 <section class="hero">
     <div class="container hero-wrap">
-    <div class="hero-text">
-        <div class="hero-blur"></div>
-        <div class="hero-badge"><span></span> Bingung nyari kos? yuuk cari di KosinAja!</div>
-        <h1>Cari Kos Jadi <em>Lebih Mudah</em> & Nyaman</h1>
-        <p>Jelajahi pilihan kos terbaik dan lihat detail lengkap sebelum memilih. Cepat, mudah, dan terpercaya.
-        </p>
-        <div class="hero-search">
-            <input type="text" placeholder="Cari kos di kota atau daerah...">
-            <button>Jelajahi Sekarang</button>
-        </div>
-        <div class="hero-trust">
 
-    <span>✓ Informasi Lengkap</span>
-    <span>✓ Harga Transparan</span>
-    <span>✓ Lihat Lokasi dan Fasilitas</span>
+        <div class="hero-text">
+            <div class="hero-blur"></div>
+            <div class="hero-badge">Bingung nyari kos? Yuuk cari di KosinAja!</div>
+            <h1>Cari Kos Jadi <em>Lebih Mudah</em> & Nyaman</h1>
+            <p>Jelajahi pilihan kos terbaik dan lihat detail lengkap sebelum memilih. Cepat, mudah, dan terpercaya.</p>
+            <div class="hero-search">
+                <input type="text" placeholder="Cari kos di kota atau daerah...">
+                <button type="button">Jelajahi Sekarang</button>
+            </div>
+            <div class="hero-trust">
+                <span>✓ Informasi Lengkap</span>
+                <span>✓ Harga Transparan</span>
+                <span>✓ Lihat Lokasi dan Fasilitas</span>
+            </div>
+        </div>
 
-</div>
-    </div>
-    <div class="hero-image">
-        <div class="hero-float-card card-1">
-            <div class="float-icon"><svg viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
-                </svg></div>
-            <div class="float-text"><strong>Terverifikasi</strong><span>Semua kos sudah dicek</span></div>
+        <div class="hero-image">
+            <div class="hero-float-card card-1">
+                <div class="float-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                    </svg>
+                </div>
+                <div class="float-text">
+                    <strong>Terverifikasi</strong>
+                    <span>Semua kos sudah dicek</span>
+                </div>
+            </div>
+            <div class="hero-float-card card-2">
+                <div class="float-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5 14.5 7.62 14.5 9 13.38 11.5 12 11.5z" />
+                    </svg>
+                </div>
+                <div class="float-text">
+                    <strong>Temukan kos</strong>
+                    <span>Sesuai Lokasimu</span>
+                </div>
+            </div>
+            <img src="{{ asset('hero.png') }}" alt="Ilustrasi Cari Kos">
         </div>
-        <div class="hero-float-card card-2">
-            <div class="float-icon"><svg viewBox="0 0 24 24">
-                    <path
-                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5 14.5 7.62 14.5 9 13.38 11.5 12 11.5z" />
-                </svg></div>
-            <div class="float-text"><strong>Temukan kos</strong><span>Sesuai Lokasimu</span></div>
-        </div>
-        <img src="{{ asset('hero.png') }}" alt="Ilustrasi Cari Kos">
-    </div>
+
     </div>
 </section>
 
-{{-- REKOMENDASI KOS --}}
-<section class="section">
+{{-- ══════════════════ STATS STRIP ══════════════════ --}}
+<div class="stats-strip">
+    <div class="container stats-inner">
+        <div class="stat-item">
+            <div class="stat-num">20</div>
+            <div class="stat-label">Kos Terdaftar</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">10</div>
+            <div class="stat-label">Penghuni Aktif</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">50+</div>
+            <div class="stat-label">Total Kamar</div>
+        </div>
 
+    </div>
+</div>
+{{-- ══════════════════ REKOMENDASI KOS ══════════════════ --}}
+<section class="rekom-section">
     <div class="container">
 
-        {{-- HEADER --}}
-        <div class="section-header">
-
-            <div class="left">
-                <h2>Rekomendasi Kos</h2>
-                <p>
-                    Temukan kos nyaman dengan fasilitas lengkap,
+        {{-- Header --}}
+        <div class="sec-header">
+            <div>
+                <div class="sec-label">🏡 Pilihan Terbaik</div>
+                <h2 class="sec-title">Rekomendasi Kos</h2>
+                <p class="sec-sub">
+                    Temukan kos nyaman dengan fasilitas lengkap,<br>
                     lokasi strategis, dan harga terbaik untuk kebutuhanmu.
                 </p>
             </div>
-            <a href="#" class="btn-lihat-semua">Lihat Semua</a>
+            <a href="#" class="btn-lihat-semua">Lihat Semua →</a>
         </div>
 
-        {{-- GRID --}}
+        {{-- Filter tabs --}}
+        <div class="filter-tabs">
+            <button class="tab-btn active" data-filter="semua">Semua</button>
+            <button class="tab-btn" data-filter="putra">Kos Putra</button>
+            <button class="tab-btn" data-filter="putri">Kos Putri</button>
+            <button class="tab-btn" data-filter="campur">Kos Campur</button>
+        </div>
+
+        {{-- Grid --}}
         <div class="kos-grid">
             @forelse($katalogKos as $kos)
-            <div class="kos-card">
-                {{-- THUMB --}}
+            <div class="kos-card" data-tipe="{{ strtolower($kos->tipe_kos) }}">
+
+                {{-- Thumb --}}
                 <div class="kos-thumb">
                     @if($kos->foto_utama)
-                        <img
-                            src="{{ Storage::url($kos->foto_utama) }}"
-                            alt="{{ $kos->nama_kos }}"
-                        >
+                    <img src="{{ Storage::url($kos->foto_utama) }}" alt="{{ $kos->nama_kos }}">
                     @else
-                        <img
-                            src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&q=80"
-                            alt="{{ $kos->nama_kos }}"
-                        >
+                    <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&q=80"
+                        alt="{{ $kos->nama_kos }}">
                     @endif
 
-                    {{-- BADGE --}}
-                    <div class="kos-badge badge-premium">
-                        {{ ucfirst($kos->tipe_kos) }}
+                    <div class="kos-badge-wrap">
+                        @php $tipe = strtolower($kos->tipe_kos); @endphp
+                        <span class="kos-badge badge-{{ $tipe }}">
+                            {{ ucfirst($kos->tipe_kos) }}
+                        </span>
                     </div>
                 </div>
 
-                {{-- BODY --}}
+                {{-- Body --}}
                 <div class="kos-body">
-                    <div class="kos-name">
-                        {{ $kos->nama_kos }}
-                    </div>
-                    <div class="kos-loc">
-                        📍 {{ $kos->kota ?? $kos->alamat }}
-                    </div>
-                    {{-- PRICE --}}
+                    <div class="kos-name">{{ $kos->nama_kos }}</div>
+                    <div class="kos-loc">📍 {{ $kos->kota ?? $kos->alamat }}</div>
+
+                    <div class="kos-divider"></div>
+
                     <div class="kos-price">
                         @if($kos->harga_mulai)
-                            Rp {{ number_format($kos->harga_mulai, 0, ',', '.') }}
-                            <span>/ bulan</span>
+                        Rp {{ number_format($kos->harga_mulai, 0, ',', '.') }}
+                        <span>/ bulan</span>
                         @else
-                            Hubungi Kami
+                        <span>Hubungi Kami</span>
                         @endif
-
                     </div>
 
-                    {{-- FASILITAS --}}
                     @if($kos->fasilitas && count($kos->fasilitas) > 0)
-
                     <div class="kos-tags">
-
                         @foreach(array_slice($kos->fasilitas, 0, 4) as $f)
-
-                            <span class="kos-tag">
-                                {{ $f }}
-                            </span>
-
+                        <span class="kos-tag">{{ $f }}</span>
                         @endforeach
-
                         @if(count($kos->fasilitas) > 4)
-
-                            <span class="kos-tag">
-                                +{{ count($kos->fasilitas) - 4 }}
-                            </span>
-
+                        <span class="kos-tag">+{{ count($kos->fasilitas) - 4 }}</span>
                         @endif
-
                     </div>
-
                     @endif
 
-                    {{-- INFO --}}
-                    <div class="kos-info">
-                        <span>
-                            🏠 {{ ucfirst($kos->tipe_kos) }}
-                        </span>
-                    </div>
-
-                    {{-- BUTTON --}}
                     <div class="kos-actions">
-
-                        <a
-                            href="{{ route('katalog.detail', $kos->id) }}"
-                            class="btn-detail"
-                        >
+                        <a href="{{ route('katalog.detail', $kos->id) }}" class="btn-detail">
                             Lihat Detail
                         </a>
 
                         @if($kos->no_telepon)
-
-                        <a
-                            href="https://wa.me/62{{ ltrim(preg_replace('/[^0-9]/', '', $kos->no_telepon), '0') }}"
-                            class="btn-hubungi"
-                            target="_blank"
-                        >
+                        <a href="https://wa.me/62{{ ltrim(preg_replace('/[^0-9]/', '', $kos->no_telepon), '0') }}"
+                            class="btn-hubungi" target="_blank">
                             Hubungi
                         </a>
-
                         @else
-
-                        <a
-                            href="{{ route('hubungi') }}"
-                            class="btn-hubungi"
-                        >
-                            Hubungi
-                        </a>
-
+                        <a href="{{ route('hubungi') }}" class="btn-hubungi">Hubungi</a>
                         @endif
-
                     </div>
-
                 </div>
 
             </div>
-
             @empty
-
-            {{-- EMPTY STATE --}}
             <div class="empty-kos">
-
-                <div class="empty-icon">
-                    🏡
-                </div>
-
+                <div class="empty-icon">🏡</div>
                 <h3>Belum Ada Kos Tersedia</h3>
-                <p>
-                    Kos akan muncul di sini setelah admin
-                    menambahkan informasi kos.
-                </p>
+                <p>Kos akan muncul di sini setelah admin menambahkan informasi kos.</p>
             </div>
             @endforelse
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+{{-- ══════════════════ FASILITAS POPULER ══════════════════ --}}
+<section class="fac-section">
+    <div class="container">
+
+        <div class="sec-header">
+            <div>
+                <div class="sec-label">✨ Apa yang Kamu Butuhkan</div>
+                <h2 class="sec-title">Fasilitas Populer</h2>
+                <p class="sec-sub">Filter kos berdasarkan fasilitas yang paling kamu butuhkan.</p>
+            </div>
+        </div>
+
+        <div class="fac-grid">
+
+            {{-- WiFi --}}
+            <a href="#" class="fac-item">
+                <div class="fac-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12.55a11 11 0 0 1 14 0" />
+                        <path d="M1.42 9A16 16 0 0 1 22.58 9" />
+                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+                        <circle cx="12" cy="20" r="1" fill="currentColor" stroke="none" />
+                    </svg>
+                </div>
+                <span class="fac-name">WiFi</span>
+                <span class="fac-count">180 kos</span>
+            </a>
+
+            {{-- AC --}}
+            <a href="#" class="fac-item">
+                <div class="fac-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="2" y="6" width="20" height="8" rx="2" />
+                        <path d="M7 14v4M12 14v4M17 14v4" />
+                        <path d="M6 10h.01M10 10h.01M14 10h.01" />
+                    </svg>
+                </div>
+                <span class="fac-name">AC</span>
+                <span class="fac-count">152 kos</span>
+            </a>
+
+            {{-- KM Dalam --}}
+            <a href="#" class="fac-item">
+                <div class="fac-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 6h16v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6z" />
+                        <path d="M12 6V4" />
+                        <path d="M8 10h8" />
+                        <circle cx="12" cy="15" r="2" />
+                    </svg>
+                </div>
+                <span class="fac-name">KM Dalam</span>
+                <span class="fac-count">134 kos</span>
+            </a>
+
+            {{-- Dapur --}}
+            <a href="#" class="fac-item">
+                <div class="fac-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 11V3h5v8a3 3 0 0 1-6 0z" />
+                        <path d="M6 3v8" />
+                        <path d="M21 3c-1 4-1 6 0 10H9" />
+                        <path d="M9 13v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7" />
+                    </svg>
+                </div>
+                <span class="fac-name">Dapur</span>
+                <span class="fac-count">98 kos</span>
+            </a>
+
+            {{-- CCTV --}}
+            <a href="#" class="fac-item">
+                <div class="fac-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M23 7l-7 5 7 5V7z" />
+                        <rect x="1" y="5" width="15" height="14" rx="2" />
+                    </svg>
+                </div>
+                <span class="fac-name">CCTV</span>
+                <span class="fac-count">115 kos</span>
+            </a>
+
+            {{-- Laundry --}}
+            <a href="#" class="fac-item">
+                <div class="fac-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="3" />
+                        <circle cx="12" cy="13" r="4" />
+                        <path d="M8 6h.01M11 6h.01" />
+                    </svg>
+                </div>
+                <span class="fac-name">Laundry</span>
+                <span class="fac-count">88 kos</span>
+            </a>
+
+            {{-- Parkir --}}
+            <a href="#" class="fac-item">
+                <div class="fac-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <path d="M9 17V7h4a3 3 0 0 1 0 6H9" />
+                    </svg>
+                </div>
+                <span class="fac-name">Parkir</span>
+                <span class="fac-count">170 kos</span>
+            </a>
+
+            {{-- Kolam Renang --}}
+            <a href="#" class="fac-item">
+                <div class="fac-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M2 12h20" />
+                        <path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+                        <path d="M7 12V7l5-3 5 3v5" />
+                        <path d="M11 7h2" />
+                    </svg>
+                </div>
+                <span class="fac-name">Kolam Renang</span>
+                <span class="fac-count">22 kos</span>
+            </a>
+
         </div>
     </div>
 </section>
 
-{{-- FASILITAS + WHY --}}
-<div class="two-col">
-    <div class="feature-box">
-        <h3>Fasilitas Populer</h3>
-        <p class="sub">Fasilitas lengkap untuk kehidupan yang nyaman</p>
-        <div class="facility-grid">
-            <div class="facility-item">
-                <div class="fac-icon"><svg viewBox="0 0 24 24">
-                        <path d="M1 6l5 5 4-4 4 4 5-5M1 12l5 5 4-4 4 4 5-5" />
-                    </svg></div>WiFi
-            </div>
-            <div class="facility-item">
-                <div class="fac-icon"><svg viewBox="0 0 24 24">
-                        <path
-                            d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-5 0V4.5A2.5 2.5 0 0 1 9.5 2zM14.5 8A2.5 2.5 0 0 1 17 10.5v9a2.5 2.5 0 0 1-5 0v-9A2.5 2.5 0 0 1 14.5 8z" />
-                    </svg></div>AC
-            </div>
-            <div class="facility-item">
-                <div class="fac-icon"><svg viewBox="0 0 24 24">
-                        <path
-                            d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7z" />
-                    </svg></div>KM Dalam
-            </div>
-            <div class="facility-item">
-                <div class="fac-icon"><svg viewBox="0 0 24 24">
-                        <path d="M3 2h18v2H3V2zm0 4h18v2H3V6zm2 4h14v10H5V10zm2 2v6h10v-6H7z" />
-                    </svg></div>Dapur
-            </div>
-            <div class="facility-item">
-                <div class="fac-icon"><svg viewBox="0 0 24 24">
-                        <path
-                            d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 2a8 8 0 1 1 0 16A8 8 0 0 1 12 4zm-1 3v6l5 3-1 1.73-6-3.73V7h2z" />
-                    </svg></div>CCTV
-            </div>
-            <div class="facility-item">
-                <div class="fac-icon"><svg viewBox="0 0 24 24">
-                        <path
-                            d="M18 2.01L6 2c-1.1 0-2 .89-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.11-.9-1.99-2-1.99z" />
-                    </svg></div>Laundry
-            </div>
-            <div class="facility-item">
-                <div class="fac-icon"><svg viewBox="0 0 24 24">
-                        <path
-                            d="M19 9h-2V7h-2v2H9V7H7v2H5c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-9c0-1.1-.9-2-2-2z" />
-                    </svg></div>Parkir
-            </div>
-            <div class="facility-item">
-                <div class="fac-icon"><svg viewBox="0 0 24 24">
-                        <path d="M2 20h20v2H2v-2zM6 3v14h2V3H6zm6 2v12h2V5h-2zm6 4v8h2V9h-2z" />
-                    </svg></div>Kolam
-            </div>
-        </div>
-    </div>
-    <div class="why-box">
-        <div>
-            <h3>Kenapa Pilih KosinAja?</h3>
-            <p class="sub">Kami hadir untuk memudahkan pencarian dan pengelolaan kos</p>
-            <div class="why-list">
-                <div class="why-item">
-                    <div class="why-icon"><svg viewBox="0 0 24 24">
-                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
-                        </svg></div>
-                    <div class="why-item-text"><strong>Pilihan Kos Terpercaya</strong>
-                        <p>Semua kos sudah terverifikasi dengan ketat oleh tim kami.</p>
-                    </div>
-                </div>
-                <div class="why-item">
-                    <div class="why-icon"><svg viewBox="0 0 24 24">
-                            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6z" />
-                        </svg></div>
-                    <div class="why-item-text"><strong>Informasi Lengkap & Transparan</strong>
-                        <p>Foto asli, harga jelas, dan fasilitas lengkap tanpa biaya tersembunyi.</p>
-                    </div>
-                </div>
-                <div class="why-item">
-                    <div class="why-icon"><svg viewBox="0 0 24 24">
-                            <path
-                                d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 3.21-1.81 6-4.72 7.72L13 17v5h5l-1.22-1.22C19.91 19.07 22 15.76 22 12c0-5.18-3.95-9.45-9-9.95z" />
-                        </svg></div>
-                    <div class="why-item-text"><strong>Proses Mudah & Cepat</strong>
-                        <p>Temukan dan hubungi pemilik kos hanya dalam beberapa klik.</p>
-                    </div>
-                </div>
-                <div class="why-item">
-                    <div class="why-icon"><svg viewBox="0 0 24 24">
-                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-                        </svg></div>
-                    <div class="why-item-text"><strong>Aman & Terjamin</strong>
-                        <p>Privasi data Anda aman bersama kami. Transaksi terproteksi.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-{{-- CTA BANNER --}}
+{{-- ══════════════════ KEUNGGULAN KAMI ══════════════════ --}}
+<section class="why-section">
+    <div class="container">
+
+        <div class="why-layout">
+
+            {{-- Kiri: list keunggulan --}}
+            <div>
+                <div class="sec-label">🌿 Keunggulan Kami</div>
+                <h2 class="sec-title">Kenapa Pilih<br>KosinAja?</h2>
+                <p class="sec-sub">Kami hadir untuk memudahkan kamu menemukan dan mengelola kos dengan lebih baik.</p>
+
+                <div class="why-list">
+                    <div class="why-item">
+                        <div class="why-num">01</div>
+                        <div class="why-text">
+                            <strong>Pilihan Kos Terpercaya</strong>
+                            <p>Semua kos sudah terverifikasi dengan ketat oleh tim kami sebelum ditayangkan.</p>
+                        </div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-num">02</div>
+                        <div class="why-text">
+                            <strong>Informasi Lengkap & Transparan</strong>
+                            <p>Foto asli, harga jelas, dan fasilitas lengkap tanpa biaya tersembunyi.</p>
+                        </div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-num">03</div>
+                        <div class="why-text">
+                            <strong>Proses Mudah & Cepat</strong>
+                            <p>Temukan dan hubungi pemilik kos hanya dalam beberapa klik saja.</p>
+                        </div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-num">04</div>
+                        <div class="why-text">
+                            <strong>Aman & Terjamin</strong>
+                            <p>Privasi data kamu aman bersama kami. Setiap transaksi terproteksi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Kanan: panel tips --}}
+            <div class="why-panel">
+                <p class="panel-label">💡 Tips Memilih Kos</p>
+
+                <div class="testi-card">
+                    <div class="testi-stars">📍 Lokasi</div>
+                    <div class="testi-text">
+                        "Pilih kos yang dekat dengan kampus atau tempat kerja. Perhatikan akses transportasi umum dan
+                        jarak ke fasilitas seperti minimarket dan warung makan."
+                    </div>
+                </div>
+
+                <div class="testi-card">
+                    <div class="testi-stars">💰 Harga</div>
+                    <div class="testi-text">
+                        "Sesuaikan harga kos dengan budget bulanan. Jangan lupa hitung biaya tambahan seperti listrik,
+                        air, dan WiFi sebelum memutuskan."
+                    </div>
+                </div>
+
+                <div class="testi-card">
+                    <div class="testi-stars">🔍 Survey Langsung</div>
+                    <div class="testi-text">
+                        "Selalu survey langsung sebelum memilih. Cek kondisi kamar, kamar mandi, keamanan, dan
+                        kebersihan lingkungan sekitar."
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+{{-- ══════════════════ CTA BANNER ══════════════════ --}}
 <div class="cta-banner">
     <img src="{{ asset('why.png') }}" alt="Kelola Kos">
     <div class="cta-overlay"></div>
     <div class="cta-content">
         <h2>Punya kos? Kelola di KosinAja!</h2>
-        <p>Daftarkan dan Kelola Kos Anda dengan Mudah dan Praktis</p>
-        <a href="{{ route('register') }}" class="btn-cta-white">DAFTAR SEKARANG</a>
+        <p>Daftarkan dan kelola kos Anda dengan mudah dan praktis</p>
+        <a href="{{ route('register') }}" class="btn-cta-white">Daftar Sekarang</a>
     </div>
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+// Filter tabs kos
+const tabs = document.querySelectorAll('.tab-btn');
+const cards = document.querySelectorAll('.kos-card');
+
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const filter = tab.dataset.filter;
+        cards.forEach(card => {
+            const tipe = card.dataset.tipe;
+            card.style.display = (filter === 'semua' || tipe === filter) ? '' : 'none';
+        });
+    });
+});
+</script>
+@endpush
