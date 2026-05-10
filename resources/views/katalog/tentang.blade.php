@@ -2,162 +2,274 @@
 
 @section('title', 'Tentang Kami - KosinAja!')
 
-@section('styles')
-<style>
-/* HERO TENTANG */
-.hero-tentang{padding:56px 64px 40px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:40px;position:relative;overflow:hidden}
-.hero-tentang::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(124,163,133,0.12) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-.hero-tentang-text{position:relative;z-index:2}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,163,133,0.12);border:1px solid rgba(124,163,133,0.3);border-radius:20px;padding:6px 16px;font-size:0.82rem;font-weight:600;color:var(--cta);margin-bottom:20px}
-.hero-tentang-text h1{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(2rem,3.5vw,2.8rem);line-height:1.15;color:var(--text-dark);margin-bottom:16px}
-.hero-tentang-text p{font-size:1rem;color:var(--text-mid);line-height:1.7;max-width:400px}
-.hero-tentang-image{display:flex;justify-content:flex-end;position:relative;z-index:2}
-.hero-tentang-image img{width:100%;max-width:none;height:auto}
-
-/* KISAH */
-.kisah-section{padding:20px 64px 48px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-.kisah-image img{width:100%;max-height:340px;object-fit:cover;border-radius:20px}
-.kisah-text h2{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.5rem;margin-bottom:16px;color:var(--text-dark)}
-.kisah-text p{font-size:0.9rem;color:var(--text-mid);line-height:1.8;margin-bottom:14px}
-
-/* VISI MISI */
-.visimisi-section{padding:0 64px 48px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.vm-box{background:var(--card-bg);border:1px solid var(--border);border-radius:20px;padding:32px}
-.vm-icon{width:44px;height:44px;background:#f0f5f1;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
-.vm-icon svg{width:22px;height:22px;fill:var(--cta)}
-.vm-box h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.15rem;color:var(--text-dark);margin-bottom:12px}
-.vm-box p{font-size:0.88rem;color:var(--text-mid);line-height:1.7;margin-bottom:14px}
-.vm-box ul{list-style:none;display:flex;flex-direction:column;gap:10px}
-.vm-box ul li{font-size:0.85rem;color:var(--text-mid);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
-.vm-box ul li::before{content:'▸';color:var(--cta);font-size:0.75rem;margin-top:2px;flex-shrink:0}
-
-/* KEUNGGULAN */
-.keunggulan-section{padding:0 64px 48px}
-.section-title-center{text-align:center;margin-bottom:36px}
-.section-title-center .divider-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:4px}
-.section-title-center h2{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.45rem;color:var(--text-dark)}
-.section-title-center p{font-size:0.88rem;color:var(--text-light);margin-top:6px}
-.keunggulan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.keunggulan-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:28px 24px;text-align:center;transition:transform 0.2s,box-shadow 0.2s}
-.keunggulan-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(124,163,133,0.15)}
-.keunggulan-icon{width:52px;height:52px;background:#f0f5f1;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
-.keunggulan-icon svg{width:26px;height:26px;fill:var(--cta)}
-.keunggulan-card h4{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1rem;color:var(--text-dark);margin-bottom:8px}
-.keunggulan-card p{font-size:0.82rem;color:var(--text-light);line-height:1.7}
-
-/* STATS */
-.stats-section{padding:0 64px 48px}
-.stats-bar{background:var(--card-bg);border:1px solid var(--border);border-radius:20px;padding:36px 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center}
-.stat-item{display:flex;flex-direction:column;align-items:center;gap:6px}
-.stat-item:not(:last-child){border-right:1px solid var(--border)}
-.stat-item strong{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:2rem;color:var(--cta)}
-.stat-item span{font-size:0.85rem;color:var(--text-light)}
-
-/* CTA JOIN */
-.cta-join{margin:0 64px 56px;background:var(--card-bg);border:1px solid var(--border);border-radius:24px;padding:48px 56px;display:flex;align-items:center;justify-content:space-between;gap:40px}
-.cta-join-text h2{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.6rem;color:var(--text-dark);margin-bottom:10px}
-.cta-join-text p{font-size:0.9rem;color:var(--text-mid);line-height:1.7;max-width:480px}
-.cta-join-actions{display:flex;gap:12px;flex-shrink:0}
-.btn-cta-green{padding:13px 28px;background:var(--cta);color:#fff;border:none;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.9rem;text-decoration:none;cursor:pointer;transition:background 0.2s,transform 0.2s;white-space:nowrap}
-.btn-cta-green:hover{background:var(--cta-hover);transform:translateY(-2px)}
-.btn-cta-outline{padding:13px 28px;background:transparent;color:var(--cta);border:1.5px solid var(--cta);border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.9rem;text-decoration:none;cursor:pointer;transition:all 0.2s;white-space:nowrap}
-.btn-cta-outline:hover{background:var(--cta);color:#fff}
-.cta-join-image img{width:160px;object-fit:contain}
-
-@media(max-width:768px){.hero-tentang{grid-template-columns:1fr;padding:36px 20px;text-align:center}.kisah-section,.visimisi-section{grid-template-columns:1fr;padding:0 20px 32px}.keunggulan-section,.stats-section{padding:0 20px 32px}.keunggulan-grid{grid-template-columns:1fr}.stats-bar{grid-template-columns:1fr}.cta-join{flex-direction:column;text-align:center;margin:0 20px 32px;padding:32px 24px}}
-</style>
-@endsection
-
 @section('content')
 
-{{-- HERO --}}
-<section class="hero-tentang">
-    <div class="hero-tentang-text">
-        <div class="hero-badge">Tentang Kami</div>
-        <h1>Tentang KosinAja</h1>
-        <p>Platform pencarian dan pengelolaan kost modern dan terpercaya di Indonesia.</p>
-    </div>
-    <div class="hero-tentang-image">
-        <img src="{{ asset('Ilustrasi Tentang KosinAja.png') }}" alt="Ilustrasi Tentang KosinAja">
-    </div>
-</section>
+<div class="max-w-8xl mx-auto px-6 py-8 flex flex-col gap-4">
 
-{{-- KISAH --}}
-<section class="kisah-section">
-    <div class="kisah-image">
-        <img src="{{ asset('fasilitas.png') }}" alt="Ruangan Kost">
-    </div>
-    <div class="kisah-text">
-        <h2>Kisah Kami</h2>
-        <p>KosinAja hadir untuk mempermudah pencarian kost bagi penghuni dan membantu pemilik kost dalam mengelola bisnisnya secara digital, praktis, dan efisien.</p>
-        <p>Kami menggabungkan teknologi dan kemudahan dalam satu platform untuk pengalaman yang lebih baik.</p>
-    </div>
-</section>
+    {{-- HERO --}}
+    <div
+        class="bg-white rounded-2xl border border-[#E2EAE3] p-8 grid grid-cols-2 gap-6 items-center relative overflow-hidden">
+        <div class="absolute -top-16 -right-16 w-56 h-56 rounded-full pointer-events-none"
+            style="background:radial-gradient(circle,rgba(124,163,133,.12) 0%,transparent 70%)"></div>
 
-{{-- VISI MISI --}}
-<div class="visimisi-section">
-    <div class="vm-box">
-        <div class="vm-icon"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div>
-        <h3>Visi Kami</h3>
-        <p>Menjadi platform kost terdepan di Indonesia yang memberikan solusi terbaik bagi penghuni dan pemilik kost.</p>
-    </div>
-    <div class="vm-box">
-        <div class="vm-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></div>
-        <h3>Misi Kami</h3>
-        <ul>
-            <li>Memudahkan pencarian kost terbaik</li>
-            <li>Membantu pemilik kost mengelola bisnis dengan lebih efisien</li>
-            <li>Memberikan pengalaman aman, nyaman, dan terpercaya</li>
-        </ul>
-    </div>
-</div>
-
-{{-- KEUNGGULAN --}}
-<section class="keunggulan-section">
-    <div class="section-title-center">
-        <div class="divider-row"><h2>Keunggulan Kami</h2></div>
-    </div>
-    <div class="keunggulan-grid">
-        <div class="keunggulan-card">
-            <div class="keunggulan-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5z"/></svg></div>
-            <h4>Mudah Cari Kost</h4>
-            <p>Temukan pilihan kost terbaik sesuai lokasi, harga, dan fasilitas yang Anda butuhkan.</p>
+        <div class="relative z-10">
+            <div
+                class="inline-flex items-center bg-[rgba(124,163,133,.12)] border border-[rgba(124,163,133,.3)] rounded-full px-4 py-1.5 text-xs font-semibold text-[#5F8568] mb-4">
+                Tentang Kami
+            </div>
+            <h1 class="font-extrabold text-3xl leading-tight text-[#1F3A2C] mb-4">Tentang KosinAja</h1>
+            <p class="text-sm text-[#4A5E4C] leading-relaxed">
+                Platform pencarian kost tanpa harus datang ke tempat — cukup lihat foto, cek fasilitas, dan bandingkan
+                harga dari mana saja. Pemilik kost pun bisa mengelola data penghuni dan pembayaran secara digital,
+                praktis, dan efisien dalam satu platform.
+            </p>
         </div>
-        <div class="keunggulan-card">
-            <div class="keunggulan-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></div>
-            <h4>Pembayaran Aman</h4>
-            <p>Sistem pembayaran terintegrasi dan aman untuk kemudahan transaksi.</p>
-        </div>
-        <div class="keunggulan-card">
-            <div class="keunggulan-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg></div>
-            <h4>Kelola Kost Praktis</h4>
-            <p>Pemilik kost dapat mengelola kamar, penghuni, dan pembayaran dalam satu platform.</p>
+
+        <div class="flex justify-end relative z-10">
+            <img src="{{ asset('Ilustrasi Tentang KosinAja.png') }}" alt="Ilustrasi Tentang KosinAja"
+                class="w-full h-auto">
         </div>
     </div>
-</section>
 
-{{-- STATS --}}
-<section class="stats-section">
-    <div class="stats-bar">
-        <div class="stat-item"><strong>2.400+</strong><span>Kost Tersedia</span></div>
-        <div class="stat-item"><strong>18</strong><span>Kota di Indonesia</span></div>
-        <div class="stat-item"><strong>12K+</strong><span>Pengguna Aktif</span></div>
+    {{-- KISAH --}}
+    <div class="bg-white rounded-2xl border border-[#E2EAE3] p-8 grid grid-cols-2 gap-6 items-center">
+        <div class="rounded-xl overflow-hidden">
+            <img src="{{ asset('fasilitas.png') }}" alt="Ruangan Kost" class="w-full h-52 object-cover rounded-xl">
+        </div>
+        <div>
+            <div
+                class="inline-flex items-center gap-1.5 text-[.65rem] font-bold tracking-widest uppercase text-[#5F8568] bg-[rgba(95,133,104,.10)] border border-[rgba(95,133,104,.22)] px-3 py-1 rounded-full mb-3">
+                Kisah Kami
+            </div>
+            <h2 class="font-extrabold text-xl text-[#1F3A2C] mb-3">Kisah Kami</h2>
+            <p class="text-sm text-[#4A5E4C] leading-relaxed mb-3">
+                KosinAja lahir dari sebuah tugas kuliah Project Based Learning (PBL) pada tahun 2026. Berawal dari
+                keresahan betapa sulitnya mencari kost yang terpercaya dan bisa dilihat tanpa harus survey langsung —
+                kami memutuskan untuk membangun solusinya.
+            </p>
+            <p class="text-sm text-[#4A5E4C] leading-relaxed">
+                Kami menggabungkan teknologi dan kemudahan dalam satu platform agar pencari kost dan pemilik kost
+                sama-sama diuntungkan.
+            </p>
+        </div>
     </div>
-</section>
 
-{{-- CTA JOIN --}}
-<div class="cta-join">
-    <div class="cta-join-text">
-        <h2>Bersama KosinAja, semua jadi lebih mudah!</h2>
-        <p>Temukan kost impianmu atau kelola kostmu sekarang juga.</p>
+    {{-- VISI MISI --}}
+    <div class="grid grid-cols-2 gap-3">
+        <div class="bg-white rounded-2xl border border-[#E2EAE3] p-6">
+            <div class="w-10 h-10 bg-[#f0f5f1] rounded-xl flex items-center justify-center text-xl mb-4">👁️</div>
+            <h3 class="font-extrabold text-base text-[#1F3A2C] mb-2">Visi Kami</h3>
+            <p class="text-sm text-[#4A5E4C] leading-relaxed">
+                Menjadi platform kost terdepan yang memberikan solusi terbaik bagi penghuni dan pemilik kost melalui
+                teknologi yang mudah digunakan.
+            </p>
+        </div>
+        <div class="bg-white rounded-2xl border border-[#E2EAE3] p-6">
+            <div class="w-10 h-10 bg-[#f0f5f1] rounded-xl flex items-center justify-center text-xl mb-4">🎯</div>
+            <h3 class="font-extrabold text-base text-[#1F3A2C] mb-2">Misi Kami</h3>
+            <ul class="flex flex-col gap-2">
+                <li class="flex gap-2 text-sm text-[#4A5E4C] leading-relaxed">
+                    <span class="text-[#5F8568] text-xs mt-0.5 flex-shrink-0">▸</span>
+                    Memudahkan pencarian kost secara online tanpa harus datang langsung
+                </li>
+                <li class="flex gap-2 text-sm text-[#4A5E4C] leading-relaxed">
+                    <span class="text-[#5F8568] text-xs mt-0.5 flex-shrink-0">▸</span>
+                    Membantu pemilik kost mengelola penghuni dan pembayaran secara digital
+                </li>
+                <li class="flex gap-2 text-sm text-[#4A5E4C] leading-relaxed">
+                    <span class="text-[#5F8568] text-xs mt-0.5 flex-shrink-0">▸</span>
+                    Memberikan pengalaman yang aman, nyaman, dan terpercaya
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="cta-join-actions">
-        <a href="/" class="btn-cta-green">Cari Kost Sekarang</a>
-        <a href="{{ route('register') }}" class="btn-cta-outline">Daftarkan Kost Anda</a>
+
+    {{-- KEUNGGULAN --}}
+    <div class="bg-white rounded-2xl border border-[#E2EAE3] p-6">
+        <div class="text-center mb-5">
+            <div
+                class="inline-flex items-center gap-1.5 text-[.65rem] font-bold tracking-widest uppercase text-[#5F8568] bg-[rgba(95,133,104,.10)] border border-[rgba(95,133,104,.22)] px-3 py-1 rounded-full mb-2">
+                Keunggulan
+            </div>
+            <h2 class="font-extrabold text-xl text-[#1F3A2C]">Keunggulan Kami</h2>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+            <div class="bg-[#F5F4F0] border border-[#E2EAE3] rounded-xl p-4 text-center">
+                <div class="w-11 h-11 bg-[#f0f5f1] rounded-xl flex items-center justify-center mx-auto mb-3 text-xl">🔍
+                </div>
+                <h4 class="font-bold text-sm text-[#1F3A2C] mb-1.5">Mudah Cari Kost</h4>
+                <p class="text-xs text-[#7A8A7C] leading-relaxed">Temukan pilihan kost terbaik sesuai lokasi, harga, dan
+                    fasilitas.</p>
+            </div>
+            <div class="bg-[#F5F4F0] border border-[#E2EAE3] rounded-xl p-4 text-center">
+                <div class="w-11 h-11 bg-[#f0f5f1] rounded-xl flex items-center justify-center mx-auto mb-3 text-xl">💳
+                </div>
+                <h4 class="font-bold text-sm text-[#1F3A2C] mb-1.5">Pembayaran Tercatat</h4>
+                <p class="text-xs text-[#7A8A7C] leading-relaxed">Pencatatan pembayaran digital yang rapi dan mudah
+                    dipantau kapan saja.</p>
+            </div>
+            <div class="bg-[#F5F4F0] border border-[#E2EAE3] rounded-xl p-4 text-center">
+                <div class="w-11 h-11 bg-[#f0f5f1] rounded-xl flex items-center justify-center mx-auto mb-3 text-xl">🏠
+                </div>
+                <h4 class="font-bold text-sm text-[#1F3A2C] mb-1.5">Kelola Kost Praktis</h4>
+                <p class="text-xs text-[#7A8A7C] leading-relaxed">Pemilik kost dapat mengelola kamar dan penghuni dalam
+                    satu platform.</p>
+            </div>
+        </div>
     </div>
-    <div class="cta-join-image">
-        <img src="{{ asset('daon (1).png') }}" alt="Ilustrasi">
+
+    {{-- STATS --}}
+    <div class="bg-[#284535] rounded-2xl px-8 py-6 grid grid-cols-3 text-center">
+        <div class="border-r border-white/20 px-4">
+            <div class="font-extrabold text-2xl text-white leading-none mb-1">{{ $totalKos ?? '—' }}</div>
+            <div class="text-xs text-white/55">Kost Terdaftar</div>
+        </div>
+        <div class="border-r border-white/20 px-4">
+            <div class="font-extrabold text-2xl text-white leading-none mb-1">{{ $totalKamar ?? '—' }}</div>
+            <div class="text-xs text-white/55">Total Kamar</div>
+        </div>
+        <div class="px-4">
+            <div class="font-extrabold text-2xl text-white leading-none mb-1">{{ $totalPenghuni ?? '—' }}</div>
+            <div class="text-xs text-white/55">Penghuni Aktif</div>
+        </div>
     </div>
+
+    {{-- TIMELINE --}}
+    <div class="bg-white rounded-2xl border border-[#E2EAE3] p-6">
+        <div class="text-center mb-6">
+            <div
+                class="inline-flex items-center gap-1.5 text-[.65rem] font-bold tracking-widest uppercase text-[#5F8568] bg-[rgba(95,133,104,.10)] border border-[rgba(95,133,104,.22)] px-3 py-1 rounded-full mb-2">
+
+
+
+
+                Perjalanan Kami
+            </div>
+            <h2 class="font-extrabold text-xl text-[#1F3A2C]">Dari Ide Hingga Platform Nyata</h2>
+        </div>
+
+        <div class="relative max-w-xl mx-auto">
+            {{-- garis tengah --}}
+            <div class="absolute left-1/2 -translate-x-1/2 top-2 bottom-2 w-0.5 bg-[#E2EAE3]"></div>
+
+            {{-- Item 1 - kiri --}}
+            <div class="flex justify-end pr-[calc(50%+22px)] mb-5 relative">
+                <div class="bg-[#F5F4F0] border border-[#E2EAE3] rounded-xl p-4 max-w-[190px]">
+                    <div class="text-[.62rem] font-bold text-[#5F8568] tracking-wide uppercase mb-1">Februari 2026</div>
+                    <div class="font-extrabold text-sm text-[#1F3A2C] mb-1">Ide Lahir dari PBL</div>
+                    <div class="text-xs text-[#7A8A7C] leading-relaxed">KosinAja lahir sebagai proyek tugas kuliah PBL
+                        dari keresahan sulitnya mencari kost secara online.</div>
+                </div>
+                <div
+                    class="absolute right-[calc(50%-9px)] top-4 w-4 h-4 bg-[#5F8568] rounded-full border-3 border-[#F5F4F0]">
+                </div>
+            </div>
+
+            {{-- Item 2 - kanan --}}
+            <div class="flex justify-start pl-[calc(50%+22px)] mb-5 relative">
+                <div class="bg-[#F5F4F0] border border-[#E2EAE3] rounded-xl p-4 max-w-[190px]">
+                    <div class="text-[.62rem] font-bold text-[#5F8568] tracking-wide uppercase mb-1">Mei — Juni 2026
+                    </div>
+                    <div class="font-extrabold text-sm text-[#1F3A2C] mb-1">Platform Diluncurkan</div>
+                    <div class="text-xs text-[#7A8A7C] leading-relaxed">KosinAja resmi diluncurkan dengan fitur
+                        pencarian, katalog kost, dan manajemen penghuni.</div>
+                </div>
+                <div
+                    class="absolute left-[calc(50%-9px)] top-4 w-4 h-4 bg-[#5F8568] rounded-full border-3 border-[#F5F4F0]">
+                </div>
+            </div>
+
+            {{-- Item 3 - kiri --}}
+            <div class="flex justify-end pr-[calc(50%+22px)] mb-5 relative">
+                <div class="bg-[#F5F4F0] border border-[#E2EAE3] rounded-xl p-4 max-w-[190px]">
+                    <div class="text-[.62rem] font-bold text-[#5F8568] tracking-wide uppercase mb-1">Pertengahan Juni
+                        2026</div>
+                    <div class="font-extrabold text-sm text-[#1F3A2C] mb-1">Pengguna Bisa Akses</div>
+                    <div class="text-xs text-[#7A8A7C] leading-relaxed">Platform mulai bisa digunakan penghuni untuk
+                        mencari kost secara lengkap tanpa datang langsung.</div>
+                </div>
+                <div
+                    class="absolute right-[calc(50%-9px)] top-4 w-4 h-4 bg-[#5F8568] rounded-full border-3 border-[#F5F4F0]">
+                </div>
+            </div>
+
+            {{-- Item 4 - kanan (highlight) --}}
+            <div class="flex justify-start pl-[calc(50%+22px)] relative">
+                <div class="bg-[#284535] border border-[#284535] rounded-xl p-4 max-w-[190px]">
+                    <div class="text-[.62rem] font-bold text-white/50 tracking-wide uppercase mb-1">Sekarang &
+                        Seterusnya</div>
+                    <div class="font-extrabold text-sm text-white mb-1">Terus Berkembang</div>
+                    <div class="text-xs text-white/70 leading-relaxed">Fitur pembayaran, manajemen kamar, dan data
+                        penghuni terus disempurnakan.</div>
+                </div>
+                <div
+                    class="absolute left-[calc(50%-9px)] top-4 w-4 h-4 bg-[#284535] rounded-full border-3 border-[#F5F4F0]">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- TIM KAMI --}}
+    <div class="bg-white rounded-2xl border border-[#E2EAE3] p-6">
+        <div class="text-center mb-5">
+            <div
+                class="inline-flex items-center gap-1.5 text-[.65rem] font-bold tracking-widest uppercase text-[#5F8568] bg-[rgba(95,133,104,.10)] border border-[rgba(95,133,104,.22)] px-3 py-1 rounded-full mb-2">
+                👥 Tim Kami
+            </div>
+            <h2 class="font-extrabold text-xl text-[#1F3A2C]">Orang-orang di Balik KosinAja</h2>
+            <p class="text-sm text-[#7A8A7C] mt-1">Empat mahasiswa yang membangun KosinAja dari nol</p>
+        </div>
+        <div class="grid grid-cols-4 gap-3">
+            <div
+                class="bg-[#F5F4F0] border border-[#E2EAE3] rounded-xl p-5 text-center hover:-translate-y-1 transition-transform">
+                <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 font-extrabold text-lg text-white"
+                    style="background:linear-gradient(135deg,#7CA385,#284535)">NA</div>
+                <div class="font-bold text-sm text-[#1F3A2C] mb-1">Naura</div>
+                <div class="text-xs text-[#5F8568] font-semibold">UI/UX Designer</div>
+            </div>
+            <div
+                class="bg-[#F5F4F0] border border-[#E2EAE3] rounded-xl p-5 text-center hover:-translate-y-1 transition-transform">
+                <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 font-extrabold text-lg text-white"
+                    style="background:linear-gradient(135deg,#BE4178,#7a1a4a)">SH</div>
+                <div class="font-bold text-sm text-[#1F3A2C] mb-1">Shavira</div>
+                <div class="text-xs text-[#5F8568] font-semibold">Frontend Developer</div>
+            </div>
+            <div
+                class="bg-[#F5F4F0] border border-[#E2EAE3] rounded-xl p-5 text-center hover:-translate-y-1 transition-transform">
+                <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 font-extrabold text-lg text-white"
+                    style="background:linear-gradient(135deg,#5F8568,#1F3A2C)">RA</div>
+                <div class="font-bold text-sm text-[#1F3A2C] mb-1">Rahma</div>
+                <div class="text-xs text-[#5F8568] font-semibold">Backend Developer</div>
+            </div>
+            <div
+                class="bg-[#F5F4F0] border border-[#E2EAE3] rounded-xl p-5 text-center hover:-translate-y-1 transition-transform">
+                <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 font-extrabold text-lg text-white"
+                    style="background:linear-gradient(135deg,#2C64AA,#0a2a5e)">YU</div>
+                <div class="font-bold text-sm text-[#1F3A2C] mb-1">Yusril</div>
+                <div class="text-xs text-[#5F8568] font-semibold">Project Manager</div>
+            </div>
+        </div>
+    </div>
+
+    {{-- CTA JOIN --}}
+    <div class="bg-white rounded-2xl border border-[#E2EAE3] p-8 flex items-center justify-between gap-8 mb-4">
+        <div class="flex-1">
+            <h2 class="font-extrabold text-xl text-[#1F3A2C] mb-2">Bersama KosinAja, semua jadi lebih mudah!</h2>
+            <p class="text-sm text-[#4A5E4C] leading-relaxed">Temukan kost impianmu atau kelola kostmu sekarang juga.
+            </p>
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+
+            <a href="{{ route('register') }}"
+                class="px-6 py-3 border-[1.5px] border-[#5F8568] text-[#5F8568] hover:bg-[#5F8568] hover:text-white rounded-xl font-bold text-sm transition-all">
+                Daftarkan Kost Anda
+            </a>
+        </div>
+        <div>
+            <img src="{{ asset('daon (1).png') }}" alt="Ilustrasi" class="w-36 object-contain">
+        </div>
+    </div>
+
 </div>
 
 @endsection
