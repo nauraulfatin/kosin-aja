@@ -37,9 +37,9 @@
 
 .hero-wrap {
     display: grid;
-    grid-template-columns: 1fr 1.8fr;
+    grid-template-columns: 1fr 1.15fr;
     align-items: center;
-    gap: 80px;
+    gap: 160px;
     min-height: 88vh;
 }
 
@@ -83,6 +83,7 @@
 .hero-text {
     position: relative;
     z-index: 2;
+    max-width: 560px;
 }
 
 .hero-badge {
@@ -198,9 +199,8 @@
 }
 
 .hero-image img {
-    max-width: 100%;
+    max-width: 180%;
     max-height: 800px;
-    width: 100%;
     object-fit: contain;
     animation: float 4s ease-in-out infinite;
 }

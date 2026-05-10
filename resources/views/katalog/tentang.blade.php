@@ -225,28 +225,28 @@
                 <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 font-extrabold text-lg text-white"
                     style="background:linear-gradient(135deg,#7CA385,#284535)">NA</div>
                 <div class="font-bold text-sm text-[#1F3A2C] mb-1">Naura</div>
-                <div class="text-xs text-[#5F8568] font-semibold">UI/UX Designer</div>
+                <div class="text-xs text-[#5F8568] font-semibold">Developer</div>
             </div>
             <div
                 class="bg-[#F5F4F0] border border-[#E2EAE3] rounded-xl p-5 text-center hover:-translate-y-1 transition-transform">
                 <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 font-extrabold text-lg text-white"
                     style="background:linear-gradient(135deg,#BE4178,#7a1a4a)">SH</div>
                 <div class="font-bold text-sm text-[#1F3A2C] mb-1">Shavira</div>
-                <div class="text-xs text-[#5F8568] font-semibold">Frontend Developer</div>
+                <div class="text-xs text-[#5F8568] font-semibold">Developer</div>
             </div>
             <div
                 class="bg-[#F5F4F0] border border-[#E2EAE3] rounded-xl p-5 text-center hover:-translate-y-1 transition-transform">
                 <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 font-extrabold text-lg text-white"
                     style="background:linear-gradient(135deg,#5F8568,#1F3A2C)">RA</div>
                 <div class="font-bold text-sm text-[#1F3A2C] mb-1">Rahma</div>
-                <div class="text-xs text-[#5F8568] font-semibold">Backend Developer</div>
+                <div class="text-xs text-[#5F8568] font-semibold">Developer</div>
             </div>
             <div
                 class="bg-[#F5F4F0] border border-[#E2EAE3] rounded-xl p-5 text-center hover:-translate-y-1 transition-transform">
                 <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 font-extrabold text-lg text-white"
                     style="background:linear-gradient(135deg,#2C64AA,#0a2a5e)">YU</div>
                 <div class="font-bold text-sm text-[#1F3A2C] mb-1">Yusril</div>
-                <div class="text-xs text-[#5F8568] font-semibold">Project Manager</div>
+                <div class="text-xs text-[#5F8568] font-semibold">Developer</div>
             </div>
         </div>
     </div>
