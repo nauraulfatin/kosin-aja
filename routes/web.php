@@ -64,7 +64,7 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth'])
+Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
@@ -167,7 +167,7 @@ Route::middleware(['auth'])
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth'])
+Route::middleware(['auth','role:super_admin'])
     ->prefix('superadmin')
     ->name('superadmin.')
     ->group(function () {
@@ -210,7 +210,7 @@ Route::middleware(['auth'])
 
 });
 
-Route::middleware(['auth'])
+Route::middleware(['auth', 'role:penghuni'])
     ->prefix('penghuni')
     ->name('penghuni.')
     ->group(function () {
